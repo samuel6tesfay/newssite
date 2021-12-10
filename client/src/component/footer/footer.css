@@ -1,0 +1,393 @@
+.main a {
+  cursor: pointer;
+  text-decoration: none !important;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.main a:hover {
+  color: #F28123;
+  text-decoration: none;
+}
+
+.main h1, .h1,
+.main h2, .h2,
+.main h3, .h3,
+.main h4, .h4,
+.main h5, .h5,
+.main h6, .h6 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  margin: 0 0 1.25rem 0;
+  color: #051922;
+}
+
+.main h1:last-child,.main .h1:last-child,
+.main h2:last-child,.main .h2:last-child,
+.main h3:last-child,.main .h3:last-child,
+.main h4:last-child,.main .h4:last-child,
+.main h5:last-child,.main .h5:last-child,
+.main h6:last-child,.main .h6:last-child {
+  margin: 0;
+}
+
+.main h1,.main  .h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 4rem;
+}
+
+@media only screen and (max-width: 767.96px) {
+  .main h1, .main .h1 {
+    font-size: 3rem;
+    line-height: 3.25rem;
+  }
+}
+
+@media only screen and (max-width: 575.96px) {
+  .main h1, .main .h1 {
+    font-size: 2.5rem;
+    line-height: 2.75rem;
+  }
+}
+
+.main h2,.main .h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 3.25rem;
+}
+
+@media only screen and (max-width: 767.96px) {
+  .main h2,.main .h2 {
+    font-size: 2.5rem;
+    line-height: 2.75rem;
+  }
+}
+
+@media only screen and (max-width: 575.96px) {
+ .main h2,.main .h2 {
+    font-size: 2rem;
+    line-height: 2.25rem;
+  }
+}
+
+.main h3,.main .h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 2.25rem;
+}
+
+@media only screen and (max-width: 575.96px) {
+  .main h3, .main .h3 {
+    font-size: 1.75rem;
+    line-height: 2rem;
+  }
+}
+
+.main h4,.main .h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.75rem;
+}
+
+@media only screen and (max-width: 575.96px) {
+  .main h4,.main .h4 {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+}
+
+.main h5,.main .h5 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+.main h6,.main .h6 {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+.main p {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 0.1px;
+  line-height: 1.8;
+  color: #051922;
+  margin: 0 0 1.25rem 0;
+}
+
+.main p:last-child {
+  margin: 0;
+}
+
+.main .footer-area {
+  background-color: #051922;
+  color: #fff;
+  padding: 150px 0;
+}
+
+.dark-mode .main .footer-area{
+      background-color: #0c0c0d;
+
+}
+
+.main h2.widget-title {
+  font-size: 24px;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 20px;
+  color: #fff;
+}
+
+.main h2.widget-title:after {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 20px;
+  height: 2px;
+  background-color: #F28123;
+  content: "";
+}
+
+.main .footer-box p {
+  color: #fff;
+  opacity: 0.7;
+  line-height: 1.8;
+}
+
+.main .footer-box ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.main .footer-box ul li {
+  opacity: 0.7;
+  margin-bottom: 10px;
+  line-height: 1.8;
+}
+
+.main .footer-box ul li:last-child {
+  margin-bottom: 0;
+}
+
+.main .footer-box.subscribe form input[type=email] {
+  border: none;
+  background-color: #012738;
+  width: 78%;
+  padding: 15px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  color: #fff;
+}
+
+.main .footer-box.subscribe form button {
+  width: 20%;
+  border: none;
+  background-color: #012738;
+  color: #F28123;
+  padding: 14px 0;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  cursor: pointer;
+}
+
+.main .footer-box.subscribe form button:focus {
+  outline: none;
+}
+
+.main .copyright {
+  background-color: #051922;
+  border-top: 1px solid #232a35;
+  padding-bottom: 30px;
+  padding-top: 50px;
+}
+
+.dark-mode .main .copyright{
+      background-color: #0c0c0d;
+}
+
+.main .copyright p {
+  margin: 0;
+  color: #fff;
+  opacity: 0.7;
+  padding: 16px 0;
+  font-size: 15px;
+}
+
+.main .copyright a {
+  color: #F28123;
+  font-weight: 700;
+}
+
+.main .copyright a:hover {
+  color: #f59d53;
+}
+
+.main .social-icons ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.main .social-icons ul li {
+  display: inline-block;
+}
+
+.main .social-icons ul li a {
+  font-size: 16px;
+  color: #fff;
+  opacity: 0.7;
+  padding: 16px 10px;
+  display: block;
+}
+
+.main .footer-box ul li a {
+  color: #fff;
+}
+
+.main .footer-box.pages ul li {
+  position: relative;
+  /* padding-left: 20px; */
+}
+
+
+
+/* -----------------------------------------------------------------------------
+
+# Hover Styles
+
+----------------------------------------------------------------------------- */
+.main a.navbar-brand {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.main a.navbar-brand:hover {
+  opacity: 0.7;
+}
+
+.main a.boxed-btn {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.main a.boxed-btn:hover {
+  background-color: #051922;
+  color: #F28123;
+}
+
+.main a.bordered-btn {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.main a.bordered-btn:hover {
+  background-color: #F28123;
+  color: #fff;
+}
+
+.main ul.sub-menu a {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.main ul.sub-menu li:hover a {
+  color: #F28123;
+}
+
+.main .single-tof-box {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.main .single-tof-box:hover {
+  -webkit-box-shadow: 0 0 80px #353535;
+  box-shadow: 0 0 80px #353535;
+}
+
+
+.main .latest-news-bg {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.main .single-latest-news:hover .latest-news-bg {
+  opacity: 0.8;
+}
+
+.main a.tof-btn {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.main a.tof-btn i {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.main a.tof-btn:hover {
+  color: #F28123;
+}
+
+.main a.tof-btn:hover i {
+  margin-left: 10px;
+}
+
+.main .single-latest-news {
+  -webkit-box-shadow: 0 0 20px #dddddd;
+  box-shadow: 0 0 20px #dddddd;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.main .single-latest-news:hover {
+  -webkit-box-shadow: 0 0 0;
+  box-shadow: 0 0 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.main .single-logo-item {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.main .single-logo-item:hover {
+  opacity: 0.7;
+}
+
+.main .footer-box.pages ul li a {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.main .footer-box.pages ul li:hover a {
+  color: #F28123;
+}
+
+.main .footer-box.subscribe form button {
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.main .footer-box.subscribe form button:hover {
+  background-color: #F28123;
+  color: #051922;
+}

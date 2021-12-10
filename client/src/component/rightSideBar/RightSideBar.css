@@ -1,0 +1,52 @@
+.rightsidebar{
+    	animation: slideInFromRight 1s ease-in;
+        margin-left: 20px;
+        position: sticky;
+	top: 100px;
+
+}
+@keyframes slideInFromRight {
+	0% {
+		transform: translateX(100%);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+a.block-s1 {
+    width: 150px;
+    display: block;
+    transition: .5s;
+}
+p.how-to-games {
+    font-size: 13px;
+    color: black;
+    font-weight: 800;
+    line-height: 0px;
+    /* float: left; */
+    margin-top: 25px;
+}
+p.desctops {
+    color: black important;
+    font-size: 11px;
+    display: -webkit-inline-box;
+    transition: .5s;
+    padding: 0;
+    text-align: -webkit-auto;
+}
+a.block-s1:hover {
+    /* opacity: .8; */
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+@media (max-width: 1000px) {
+	.rightsidebar{
+        margin: auto;
+    }
+    .rightsidebar1{
+        text-align:center;
+    }
+}

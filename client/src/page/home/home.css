@@ -1,0 +1,21 @@
+.home{
+    display: flex;
+}
+
+.sidebar{
+    flex: 2;
+}
+
+.cardd{
+    flex:5;
+}
+
+.rightsidebar{
+    flex: 1;
+}
+
+@media (max-width: 500px) {
+	.home {
+		flex-direction: column;
+	}
+}
