@@ -12,7 +12,8 @@ const create_contact = async (req,res) =>{
 
         res.json(new_contact[0])
         
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -24,7 +25,8 @@ const contacts = async (req,res) =>{
         const allcontacts = await pool.query("select * from contact");
         res.json(allcontacts.rows);
        
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -37,7 +39,8 @@ const contact = async (req,res) =>{
         const contact = await pool.query("select * from contact where id = $1", [id]);
         res.json(contact.rows[0]);
 
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -49,7 +52,8 @@ const update_contact = async (req,res) =>{
         const { title} = req.body;
                 pool.query("update contact set   title = $1  where id = $2",[title,id]);
         res.json("contact is successfully updated"); 
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -61,7 +65,8 @@ const delete_contact = async (req,res) =>{
         pool.query("delete from contact where id=$1",[id]);
         res.json("contact is successfully deleted");
       
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }

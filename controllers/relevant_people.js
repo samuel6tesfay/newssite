@@ -12,7 +12,8 @@ const createrelevant_people = async (req,res) =>{
         );
         res.json(newrelevant_people[0])
         
-    }catch(err){
+    } catch (err) {
+        res.json('error');
         console.log(err.message);
     }
 }
@@ -21,7 +22,8 @@ const relevant_peoples = async (req,res) =>{
     try{
        const allrelevant_peoples = await pool.query("select * from relevant_people ORDER BY id DESC LIMIT $1",[20]);
         res.json(allrelevant_peoples.rows);
-    }catch(err){
+    } catch (err) {
+        res.json('error');
         console.log(err.message);
     }
 }
@@ -32,7 +34,8 @@ const relevant_people = async (req,res) =>{
         const { id } = req.params;
         const relevant_people = await pool.query("select * from relevant_people where id = $1", [id]);
         res.json(relevant_people.rows[0]);
-    }catch(err){
+    } catch (err) {
+        res.json('error');
         console.log(err.message);
     }
 }
@@ -44,7 +47,8 @@ const updaterelevant_people = async (req,res) =>{
         const { name , body,link } = req.body;
         pool.query("update relevant_people set name = $1 , body  = $2 , link = $3  where id = $4",[name,body,link,id]);
         res.json("relevant_peoples was updated"); 
-    }catch(err){
+    } catch (err) {
+        res.json('error');
         console.log(err.message);
     }
 }
@@ -56,7 +60,8 @@ const deleterelevant_people = async (req,res) =>{
         pool.query("delete from relevant_people where id=$1", [id]);
         res.json("relevant_people was deleted!"); 
        
-    }catch(err){
+    } catch (err) {
+        res.json('error');
         console.log(err.message);
     }
 }

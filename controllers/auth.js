@@ -58,13 +58,12 @@ const signup = async (req,res) => {
             }
             
         } else {
-            console.log("456")
-            res.json(errors);
+            res.json("error");
             errors = []
         }
         
     } catch (err) {
-        console.log("456")
+        res.json("error")
         console.log(err.message);
     }
 }
@@ -94,7 +93,7 @@ const login = async(req,res) => {
                     res.status(200).json({ id:user.id,isAdmin:user.isAdmin });
                 }
                 else {
-                    res.status(204);
+                    res.json("error");
 
                 }
             }catch(err){
@@ -102,8 +101,9 @@ const login = async(req,res) => {
             }
         }
         
-        res.render('users login');
-    }catch(err){
+        res.json('users login');
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
 
     }

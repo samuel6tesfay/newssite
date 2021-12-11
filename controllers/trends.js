@@ -9,11 +9,9 @@ const createtrend = async (req, res) => {
         const trend = await pool.query(
             "insert into trends (body,link,user_id) values($1,$2,$3)",[body,link,user_id]
         );
-
         res.json(trend[0])
-
-
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -22,9 +20,9 @@ const trends = async (req,res) =>{
     try{
         
         const alltrends = await pool.query("select * from trends ORDER BY id DESC LIMIT $1",[10]);
-
         res.json(alltrends.rows);
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -42,7 +40,8 @@ const trend= async (req,res) =>{
         // } else {
         //     res.json("")
         // }
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -55,7 +54,8 @@ const updatetrend = async (req,res) =>{
         pool.query("update trends set   body = $1 , link = $2  where id = $3",[body,link,id]);
         res.json("trend was updated"); 
         
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -68,7 +68,8 @@ const deletetrend = async (req,res) =>{
         res.json("trend was deleted!"); 
 
         
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }

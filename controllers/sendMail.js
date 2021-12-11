@@ -72,10 +72,11 @@ const sendmail = async (req, res) => {
       console.log('Message sent: %s', info.messageId);   
       console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
-      res.render('contact', {msg:'Email has been sent'});
+      res.json('Email has been sent');
   });
       
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }

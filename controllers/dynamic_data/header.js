@@ -15,7 +15,8 @@ const create_header = async (req,res) =>{
 
         res.json(new_header[0])
         
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -27,7 +28,8 @@ const headers = async (req,res) =>{
         const allheaders = await pool.query("select * from header");
         res.json(allheaders.rows);
        
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -40,7 +42,8 @@ const header = async (req,res) =>{
         const header = await pool.query("select * from header where id = $1", [id]);
         res.json(header.rows[0]);
 
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -54,7 +57,8 @@ const update_header = async (req,res) =>{
             menu4, menu4link} = req.body;
                 pool.query("update header set   logo = $1 , logolink = $2 , menu1 = $3 ,menu1link = $4,menu2 = $5 ,menu2link = $6, menu3 = $7 ,menu3link = $8,menu4 = $9 ,menu4link = $10 where id = $11",[logo, logolink, menu1, menu1link, menu2, menu2link, menu3, menu3link, menu4, menu4link,id]);
         res.json("header is successfully updated"); 
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -66,7 +70,8 @@ const delete_header = async (req,res) =>{
         pool.query("delete from header where id=$1",[id]);
         res.json("header is successfully deleted");
       
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }

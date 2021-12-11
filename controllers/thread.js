@@ -21,7 +21,8 @@ const createthread = async (req,res) =>{
 
         res.json(thread[0])
         
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -42,7 +43,8 @@ const threads = async (req,res) =>{
         // console.log(allThreads);
         res.json({ "thread": allThreads.rows , "count":rows[0].count,"limit":limit });
        
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -61,7 +63,8 @@ const readImage = async (req,res) =>{
         const fullfilepath = path.join(dirname, thread.rows[0].filepath);
         res.sendFile(fullfilepath)       
        
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -74,7 +77,8 @@ const thread = async (req,res) =>{
         const thread = await pool.query("select * from threads where id = $1", [id]);
         res.json(thread.rows[0]);
 
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -86,7 +90,10 @@ const update_view = async (req, res) => {
         let view = thread.rows[0].views + 1;
         const thread_update = await pool.query("update threads set  views = $1  where id = $2",[view,id]);
         res.json(thread.rows[0]);
-    }catch(err){err.message}
+    } catch (err) {
+        res.json("error");
+        err.message
+    }
 }
 
 // update todo
@@ -101,7 +108,8 @@ const updatethread = async (req,res) =>{
         pool.query("update threads set   username = $1 , body = $2 , link = $3  where id = $4",[username,body,link,id]);
 
         res.json("thread is successfully updated"); 
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -113,7 +121,8 @@ const deletethread = async (req,res) =>{
         pool.query("delete from threads where id=$1",[id]);
         res.json("thread is successfully deleted");
       
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }

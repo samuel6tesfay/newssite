@@ -23,7 +23,8 @@ const createscolarship = async (req,res) =>{
 
         res.json(newScolarship[0])
         
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -38,7 +39,8 @@ const scolarships = async (req,res) =>{
        const allScolarships = await pool.query("select * from scolarships ORDER BY id DESC LIMIT $1 OFFSET $2", [limit, limit*page]);
         // res.send("");
        res.json({ "scolarship": allScolarships.rows , "count":rows[0].count,"limit":limit });
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -55,7 +57,8 @@ const readImage = async (req,res) =>{
         const dirname = path.resolve();
         const fullfilepath = path.join(dirname, scolarship.rows[0].filepath);
         res.sendFile(fullfilepath)
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -67,7 +70,8 @@ const scolarship = async (req,res) =>{
         const scolarship = await pool.query("select * from scolarships where id = $1", [id]);
         res.json(scolarship.rows[0]);
 
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -79,7 +83,8 @@ const updatescolarship = async (req,res) =>{
         const { body,deadline,link} = req.body;
         pool.query("update scolarships set   body = $1 , deadline = $2 , link = $3 where id = $4",[body,deadline,link,id]);
         res.json("scolarship is successfully updated");  
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -91,7 +96,8 @@ const deletescolarship = async (req,res) =>{
         pool.query("delete from scolarships where id=$1",[id]);
         res.json("scolarship is successfully deleted");
        
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }

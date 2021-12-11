@@ -15,7 +15,8 @@ const create_about_scolarship = async (req,res) =>{
 
         res.json(new_about_scolarship[0])
         
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -34,7 +35,8 @@ const readImage = async (req,res) =>{
         const fullfilepath = path.join(dirname, about_scolarship.rows[0].filepath);
         res.sendFile(fullfilepath)       
        
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -46,7 +48,8 @@ const about_scolarships = async (req,res) =>{
         const allabout_scolarships = await pool.query("select * from about_scolarship");
         res.json(allabout_scolarships.rows);
        
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -59,7 +62,8 @@ const about_scolarship = async (req,res) =>{
         const about_scolarship = await pool.query("select * from about_scolarship where id = $1", [id]);
         res.json(about_scolarship.rows[0]);
 
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -71,7 +75,8 @@ const update_about_scolarship = async (req,res) =>{
         const { title , discription,button} = req.body;
         pool.query("update about_scolarship set   title = $1 , discription = $2 , button = $3 where id = $4",[title,discription,button,id]);
         res.json("about_scolarship is successfully updated"); 
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -83,7 +88,8 @@ const delete_about_scolarship = async (req,res) =>{
         pool.query("delete from about_scolarship where id=$1",[id]);
         res.json("about_scolarship is successfully deleted");
       
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }

@@ -20,7 +20,8 @@ const create_footer = async (req,res) =>{
 
         res.json(new_footer[0])
         
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -32,7 +33,8 @@ const footers = async (req,res) =>{
         const allfooters = await pool.query("select * from footer");
         res.json(allfooters.rows);
        
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -45,7 +47,8 @@ const footer = async (req,res) =>{
         const footer = await pool.query("select * from footer where id = $1", [id]);
         res.json(footer.rows[0]);
 
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -65,7 +68,8 @@ const update_footer = async (req,res) =>{
                                                                 phone, icon1, icon1link, icon2, icon2link,
                                                                 icon3,icon3link,icon4,icon4link,icon5,icon5link, id]);
         res.json("footer is successfully updated"); 
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
@@ -77,7 +81,8 @@ const delete_footer = async (req,res) =>{
         pool.query("delete from footer where id=$1",[id]);
         res.json("footer is successfully deleted");
       
-    }catch(err){
+    } catch (err) {
+        res.json("error");
         console.log(err.message);
     }
 }
