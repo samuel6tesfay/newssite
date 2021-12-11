@@ -120,7 +120,7 @@ export default function ScolarShip() {
             <div className="top">
               {/* <img src="assets/right-arrow.png" className="left" alt="" /> */}
                <img 
-                  src={"http://localhost:5000/scolarship/readImage/"+ scolarship.filename }
+                  src={"https://tyassociation.herokuapp.com/scolarship/readImage/"+ scolarship.filename }
                   alt="Photo"
                   className="user"
                 />

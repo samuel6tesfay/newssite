@@ -85,7 +85,7 @@ const Card = (props) => {
                 <div className="col-md-2 dv lv">
                     {/* <span className="ic-love"> */}
                          <img 
-                         src={"http://localhost:5000/thread/readImage/"+ thread.filename }
+                         src={"https://tyassociation.herokuapp.com/thread/readImage/"+ thread.filename }
                          alt="Photo"
                          width="60"
                          height="60"
