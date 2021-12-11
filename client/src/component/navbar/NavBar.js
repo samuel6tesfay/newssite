@@ -25,12 +25,7 @@ const NavBar = () => {
 
 	return (
 		<div className="navbar">
-
-			{isPending || isAdminPending &&<div className="container  flex">
-					 <h2 className="logo"><Link to="/"> tweeter camp</Link></h2>
-
-				</div>
-			}
+			{isPending || isAdminPending && <div>Loading.....</div>}
 			{!isPending && !isAdminPending && 
 				<div className="container  flex">
 				{!isPending && <div>
