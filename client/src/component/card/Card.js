@@ -110,7 +110,7 @@ const Card = (props) => {
                              </Link>
                              : ""
                          }
-                         <span>{thread.views} views  29 Oct 2021</span>
+                         <span>{thread.views} views  </span>
                 </div>
                     </div>
                     

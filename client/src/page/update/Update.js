@@ -90,7 +90,7 @@ const Update = () => {
 	const updateThread = (e) => {
 		e.preventDefault();
 			
-			 const formData = new FormData();
+			const formData = new FormData();
             formData.append('image', image);
 			formData.append('username',username);
 			formData.append('body',body);
@@ -196,7 +196,6 @@ const Update = () => {
 							id="myFile"
 							name="filename"
 							accept="image/*"
-							value={img}
 							onChange={fileSelectedHandler}
 							
 						/>
