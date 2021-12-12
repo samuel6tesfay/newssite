@@ -21,11 +21,11 @@ const SignIn = () => {
 		setPassword("");
 	};
 
-	useEffect(() => {
-		if (userInfo) {
-		history.push("/");
-		}
-	}, [history, userInfo]);
+	// useEffect(() => {
+	// 	if (userInfo) {
+	// 	history.push("/");
+	// 	}
+	// }, [history, userInfo]);
 
  
 	

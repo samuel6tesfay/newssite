@@ -5,8 +5,6 @@ const jwt = require('jsonwebtoken');
 const verifyToken = (req,res,next) => {
     // const token = req.cookies.userInfo;
     const token = req.headers['x-access-token']
-    // console.log(JSON.parse(JSON.stringify(token)));
-    // console.log(token);
     if(token){
         jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,user) => {
             if(err){
@@ -14,9 +12,7 @@ const verifyToken = (req,res,next) => {
                 res.redirect('/login');
 
             }else{
-                // console.log(decodedToken.id);
               req.user = user;
-              // console.log(user);
               next();
             }
         })

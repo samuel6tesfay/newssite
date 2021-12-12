@@ -29,7 +29,6 @@ validateUser = (user) =>{
       }
 
     if(errors.length > 0){
-        console.log(errors)
         return false;
         
     }else{
@@ -40,15 +39,12 @@ validateUser = (user) =>{
 
 const signup = async (req,res) => {
     try {
-        console.log("123")
 
-        console.log(req.body)
         if (validateUser(req.body)) {
 
             const {name , email , password , isadmin} = req.body;
 
             const checkEmail = await pool.query(`SELECT * FROM users WHERE email = $1`,[email])
-            console.log(checkEmail.rows);
             if(checkEmail.rows.length == 0){
                 hashedPassword = await bcrypt.hash(password,10);
                 await pool.query("insert into users (name,email,password,isadmin) values($1,$2,$3,$4)",[name,email,hashedPassword,isadmin]);
@@ -64,7 +60,6 @@ const signup = async (req,res) => {
         
     } catch (err) {
         res.json("error")
-        console.log(err.message);
     }
 }
 
@@ -72,7 +67,6 @@ const login = async(req,res) => {
     
     try{
         const { email, password } = req.body;
-        console.log(req.body);
         const user = await pool.query(`SELECT * FROM users WHERE email = $1`,[email])
 
         if (user.rows.length > 0) {
@@ -90,10 +84,10 @@ const login = async(req,res) => {
                     res.send({'userInfo':token})
                     res.status(200);
 
-                    res.status(200).json({ id:user.id,isAdmin:user.isAdmin });
+                    res.json({ id:user.id,isAdmin:user.isAdmin });
                 }
                 else {
-                    res.json("password incorrect");
+                    res.json("enter correct password");
 
                 }
             }catch(err){
@@ -101,10 +95,9 @@ const login = async(req,res) => {
             }
         }
         
-        res.json('users login');
+        res.json("enter correct email");
     } catch (err) {
         res.json("error");
-        console.log(err.message);
 
     }
 }

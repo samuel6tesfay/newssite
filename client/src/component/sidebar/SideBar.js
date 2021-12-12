@@ -17,7 +17,6 @@ const SideBar = (props) => {
         setTrends(props.trend);
     },[props.trend])
     // const trends = props.trend;
-    console.log(trends);
     const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
 

@@ -30,9 +30,11 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
 
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+    
 
-    data !== "password incorrect" &&  localStorage.setItem("userInfo", JSON.stringify(data));
+    data !== "enter correct password" && data !== "enter correct email" && dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+
+    data !== "enter correct password" && data !== "enter correct email" && localStorage.setItem("userInfo", JSON.stringify(data));
 
     
     
@@ -77,7 +79,11 @@ export const register = (name, email, password) => async (dispatch) => {
 
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    data.length > 30 && dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+
+    data.length > 30  &&  localStorage.setItem("userInfo", JSON.stringify(data));
+
+
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,

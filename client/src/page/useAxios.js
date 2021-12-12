@@ -14,7 +14,6 @@ const useAxios =  (url) => {
                                 setError(null);
                         })
                         .catch(function (error) {
-                                console.log(error);
                         })
                         .then(function () {
                                 // always executed

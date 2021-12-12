@@ -39,7 +39,6 @@ const RightSideBar = (props) => {
                 : { ...relevant_people ,toggle:true}
         )));
 
-        console.log(relevant_peoples);
 
     }
 
@@ -50,7 +49,6 @@ const RightSideBar = (props) => {
                 : { ...relevant_people }
         )));
 
-        console.log(relevant_peoples);
 
     }
 

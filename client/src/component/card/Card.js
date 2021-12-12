@@ -38,14 +38,10 @@ const Card = (props) => {
 
 
     const handleClickmore =(id)=> {
-        // setToggle(!toggle);
         props.thread && setThreads(threads.map((thread) => (
             thread.id == id ? {...thread,toggle:false}
                 : { ...thread ,toggle:true}
         )));
-
-        console.log(threads);
-
     }
 
     const handleClickless =(id)=> {
@@ -55,23 +51,16 @@ const Card = (props) => {
                 : { ...thread }
         )));
 
-        console.log(threads);
-
     }
 
     const updateView = (id) => {
 		backendApi.get("/updatethreadview/"+id, {})
                         .then(function (response) {
-                                console.log(response.data, "this one");
-                                // setIsPending(false);
-                                // setError(null);			
 								
 							})
                         .catch(function (error) {
-                                console.log(error);
                         })
                         .then(function () {
-                                // always executed
                         }
 		); 
 		history.push("/");

@@ -20,8 +20,6 @@ const NavBar = () => {
 	const { data, isPending, error } = useAxios("/headers");
 	const { data:adminData, isPending:isAdminPending, error:adminError } = useAxios("/admin_headers");
 
-	console.log(data);
-
 
 	return (
 		<div className="navbar">
