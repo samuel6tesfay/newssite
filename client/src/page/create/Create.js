@@ -201,8 +201,8 @@ const Create = () => {
 								value={link}
 								onChange={(e) => setLink(e.target.value)}
 							/>
-							{!isPending && <button>Add Trend</button>}
-							{isPending && <button disabled>Adding Trend....</button>}
+							{!isPending && <button>Submit</button>}
+							{isPending && <button disabled>submit....</button>}
 						</form>
 				</div>
 				

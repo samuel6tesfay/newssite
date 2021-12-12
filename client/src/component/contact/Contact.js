@@ -103,7 +103,7 @@ const Contact = () => {
                       <input
                         type="submit"
                         class="form-control submit-btn"
-                        value="Send Button" />
+                        value="Submit" />
                   </div>
                 </div>
               </form>
