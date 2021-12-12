@@ -45,13 +45,13 @@ const signup = async (req,res) => {
         console.log(req.body)
         if (validateUser(req.body)) {
 
-            const {name , email , password} = req.body;
+            const {name , email , password , isadmin} = req.body;
 
             const checkEmail = await pool.query(`SELECT * FROM users WHERE email = $1`,[email])
             console.log(checkEmail.rows);
             if(checkEmail.rows.length == 0){
                 hashedPassword = await bcrypt.hash(password,10);
-                await pool.query("insert into users (name,email,password) values($1,$2,$3)",[name,email,hashedPassword]);
+                await pool.query("insert into users (name,email,password,isadmin) values($1,$2,$3,$4)",[name,email,isadmin,hashedPassword]);
                 res.status(201);
             }else{
                 res.json("email already exist")
