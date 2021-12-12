@@ -22,16 +22,17 @@ export default function Footer() {
                             <div className="col-lg-3 col-md-6">
                                 <div className="footer-box about-widget">
                                     <h2 className="widget-title">About us</h2>
-                                <p>{!isPending && data[0].about_us}</p>
+                                <p>{!isPending && data.length > 0 &&  data[0].about_us}</p>
                                 </div>
                             </div>
                             <div className="col-lg-3 col-md-6">
                                 <div className="footer-box get-in-touch">
                                     <h2 className="widget-title">Get in Touch</h2>
                                     <ul>
-                                    <li>{!isPending && data[0].city}, {!isPending && data[0].country}.</li>
-                                        <li>{!isPending && data[0].email}</li>
-                                        <li>{!isPending && data[0].phone}</li>
+                                    <li>{!isPending && data.length > 0 && data[0].city},
+                                        {!isPending && data.length > 0 && data[0].country}.</li>
+                                        <li>{!isPending && data.length > 0 && data[0].email}</li>
+                                        <li>{!isPending && data.length > 0 && data[0].phone}</li>
                                     </ul>
                                 </div>
                             </div>
@@ -80,18 +81,18 @@ export default function Footer() {
                 <div className="container">
                         <div className="row">
                             <div className="col-lg-6 col-md-12">
-                                <p>Copyrights &copy; 2021 - <a href="#">{!isPending && data[0].email}</a>,  All Rights Reserved.</p>
+                                <p>Copyrights &copy; 2021 - <a href="#">{!isPending && data.length > 0 && data[0].email}</a>,  All Rights Reserved.</p>
                             </div>
                             <div className="col-lg-6 text-right col-md-12">
                                 <div className="social-icons">
                                     <ul>
-                                    <li><a href="#" target="_blank"><i className={!isPending && data[0].icon1}></i></a></li>
-                                        <li><a href="#" target="_blank"><i className={!isPending && data[0].icon2}></i></a></li>
-                                        <li><a href="#" target="_blank"><i className={!isPending && data[0].icon3}></i></a></li>
-                                        <li><a href="#" target="_blank"><i className={!isPending && data[0].icon4}></i></a></li>
-                                        <li><a href="#" target="_blank"><i className={!isPending && data[0].icon5}></i></a></li>
+                                    <li><a href="#" target="_blank"><i className={!isPending && data.length > 0 && data[0].icon1}></i></a></li>
+                                        <li><a href="#" target="_blank"><i className={!isPending && data.length > 0 && data[0].icon2}></i></a></li>
+                                        <li><a href="#" target="_blank"><i className={!isPending && data.length > 0 && data[0].icon3}></i></a></li>
+                                        <li><a href="#" target="_blank"><i className={!isPending && data.length > 0 && data[0].icon4}></i></a></li>
+                                        <li><a href="#" target="_blank"><i className={!isPending && data.length > 0 && data[0].icon5}></i></a></li>
                                     {/* <li><a href="#" target="_blank"><i className="fa fa-dribbble"></i></a></li> */}
-                                        {userInfo && !isPending && <Link to={"/static/" + data[0].id + "?toggle=5"}>
+                                        {userInfo && !isPending && data.length > 0 && <Link to={"/static/" + data[0].id + "?toggle=5"}>
                     <EditIcon color="secondary" /></Link>}
                                 </ul>
 

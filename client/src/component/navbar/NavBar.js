@@ -29,8 +29,8 @@ const NavBar = () => {
 			{!isPending && !isAdminPending && 
 				<div className="container  flex">
 				{!isPending && <div>
-					{!userInfo && <h2 className="logo"><Link to="/"> {data[0].logo}</Link></h2>}
-					{userInfo &&  <h2 className="logo"><Link to="/"> {adminData[0].logo}</Link></h2>
+					{!userInfo && data.length > 0 && <h2 className="logo"><Link to="/"> {data[0].logo}</Link></h2>}
+					{userInfo && adminData.length > 0 &&  <h2 className="logo"><Link to="/"> {adminData[0].logo}</Link></h2>
 				}
 
 				</div> 
@@ -38,16 +38,16 @@ const NavBar = () => {
 					}
 					<nav>
 						<ul>
-							{!userInfo && <li><Link to="/scolarship">{data[0].menu1}</Link></li>}
-							{!userInfo && data && <li><a href="#contact">{data[0].menu2}</a></li>}
-							{!userInfo && <li><a href="#footer">{data[0].menu3}</a></li>}
-							{!userInfo && <li><Link to="/">{data[0].menu4}</Link></li>}
-							{!userInfo && <li><Link to="/signin">Login</Link></li>}
+							{!userInfo && data.length > 0 && <li><Link to="/scolarship">{data[0].menu1}</Link></li>}
+							{!userInfo && data.length > 0 && <li><a href="#contact">{data[0].menu2}</a></li>}
+							{!userInfo && data.length > 0 && <li><a href="#footer">{data[0].menu3}</a></li>}
+							{!userInfo && data.length > 0 &&<li><Link to="/">{data[0].menu4}</Link></li>}
+							{!userInfo && data.length > 0 && <li><Link to="/signin">Login</Link></li>}
 
-							{userInfo && <li><Link to="/scolarship">{adminData[0].menu1}</Link></li>}
-							{userInfo && <li><Link to="/create">{adminData[0].menu2}</Link></li>}
-							{userInfo && <li><Link to="/" onClick={e => logoutHandler(e)}>Logout</Link></li>}
-							{userInfo&&<li> < Link to={"/static/" + adminData[0].id+"?toggle=1"}>
+							{userInfo && adminData.length > 0 && <li><Link to="/scolarship">{adminData[0].menu1}</Link></li>}
+							{userInfo && adminData.length > 0 && <li><Link to="/create">{adminData[0].menu2}</Link></li>}
+							{userInfo && adminData.length > 0 && <li><Link to="/" onClick={e => logoutHandler(e)}>Logout</Link></li>}
+							{userInfo && adminData.length > 0 && <li> < Link to={"/static/" + adminData[0].id+"?toggle=1"}>
                                  <EditIcon color="secondary" />
                              </Link></li>}
 						

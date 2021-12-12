@@ -48,7 +48,7 @@ const Contact = () => {
 
           <div class="col-lg-6 col-12">
               <div class="contact-form">
-                {!isPending &&
+                {!isPending && data.length > 0 &&
                   <h2 class="mb-4" style={{ color: "#000" }}>
                     {data[0].title}
                     {userInfo && <Link to={"/static/" + data[0].id + "?toggle=3"}>
