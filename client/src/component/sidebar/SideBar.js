@@ -29,15 +29,15 @@ const SideBar = (props) => {
 
                 {trends &&trends.map((trend) => (
 
-                    <div class="sidebar_recentItem" key={trend.id}>
+                    <a class="sidebar_recentItem" key={trend.id} href={trend.link}>
 
-                            <p>#{trend.body}</p>
+                            <a href={trend.link}>#{trend.body}</a>
                             {userInfo
                                 &&< Link to={"/" + trend.id +"?toggle=2"} style={{ float: "left"}}>
                                     <EditIcon color="secondary"/>
                              </Link>
                             }
-                        </div>
+                        </a>
                 ))
             }
 
