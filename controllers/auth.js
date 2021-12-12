@@ -51,7 +51,7 @@ const signup = async (req,res) => {
             console.log(checkEmail.rows);
             if(checkEmail.rows.length == 0){
                 hashedPassword = await bcrypt.hash(password,10);
-                await pool.query("insert into users (name,email,password,isadmin) values($1,$2,$3,$4)",[name,email,isadmin,hashedPassword]);
+                await pool.query("insert into users (name,email,password,isadmin) values($1,$2,$3,$4)",[name,email,hashedPassword,isadmin]);
                 res.status(201);
             }else{
                 res.json("email already exist")
