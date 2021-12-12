@@ -21,9 +21,8 @@ function App() {
       
     <Router>
       <div className="App">
-        
-                <NavBar/>
 
+                <NavBar/>
         <div className="content">
             <Switch>
               <Route exact path="/">
@@ -42,21 +41,17 @@ function App() {
             </Route>
             <Route exact path="/scolarship">
               <ScolarShip />
-            </Route>
-              
+            </Route>  
               <Route exact path="/:id">
                   <Update/>
             </Route>
             <Route exact path="/static/:id">
                   <UpdateStatic/>
               </Route>
-                
-              
           </Switch>
         </div>
        <Contact />
         <Footer/>
-        
         </div>
     </Router>
 

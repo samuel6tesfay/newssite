@@ -77,12 +77,12 @@ const login = async(req,res) => {
 
         if (user.rows.length > 0) {
             
-            console.log("login enter");
+            // console.log("login enter");
             
             try {
                 const auth = await bcrypt.compare(password, user.rows[0].password);
                 if (auth) {
-                    console.log(user.rows[0])
+                    // console.log(user.rows[0])
                     const token = createToken(user.rows[0].id ,  user.rows[0].isadmin );
                     // res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
                     res.cookie('userInfo', token, { maxAge: maxAge * 1000 });
@@ -93,7 +93,7 @@ const login = async(req,res) => {
                     res.status(200).json({ id:user.id,isAdmin:user.isAdmin });
                 }
                 else {
-                    res.json("error");
+                    res.json("password incorrect");
 
                 }
             }catch(err){
