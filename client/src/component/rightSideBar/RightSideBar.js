@@ -7,8 +7,6 @@ import { orange } from '@material-ui/core/colors'
 import { useState, useEffect } from 'react';
 import FollowTheSignsIcon from '@mui/icons-material/FollowTheSigns';
 
-
-
 const RightSideBar = (props) => {
 
     const userLogin = useSelector((state) => state.userLogin);
@@ -39,7 +37,6 @@ const RightSideBar = (props) => {
                 : { ...relevant_people ,toggle:true}
         )));
 
-
     }
 
     const handleClickless =(id)=> {
@@ -48,7 +45,6 @@ const RightSideBar = (props) => {
             relevant_people.id == id ? {...relevant_people,toggle:true}
                 : { ...relevant_people }
         )));
-
 
     }
 
@@ -61,9 +57,9 @@ const RightSideBar = (props) => {
                         {/* <a href={relevant_people.link} className="block-s1"> */}
                             <p className="how-to-games">{relevant_people.name}
                                 {!userInfo
-                                && < Link style={{ float: "right" ,marginTop:"-10px"}} to={"/" + relevant_people.id+"?toggle=3"}>
-                                        <Link><FollowTheSignsIcon color="primary"/></Link>
-                                </Link>
+                                && <a style={{ float: "right" ,marginTop:"-10px"}} href={relevant_people.link}>
+                                        <FollowTheSignsIcon color="primary"/>
+                                </a>
                             }
                             {userInfo
                                     && < Link style={{ float: "right" ,marginTop:"-10px"}} to={"/" + relevant_people.id+"?toggle=3"}>
