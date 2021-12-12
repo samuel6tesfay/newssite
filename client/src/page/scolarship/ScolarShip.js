@@ -105,11 +105,11 @@ export default function ScolarShip() {
           </div>
 
           <div class="content1">
-          <h3>{!isPending && data[0].title}</h3>
-              <p>{!isPending && data[0].discription}</p>
-              <a href="#" class="btn1">{!isPending && data[0].button}</a>
+          <h3>{!isPending && data.length > 0 && data[0].title}</h3>
+              <p>{!isPending && data.length > 0 && data[0].discription}</p>
+              <a href="#" class="btn1">{!isPending && data.length > 0 && data[0].button}</a>
         </div>
-        {userInfo && !isPending && <Link to={"/static/" + data[0].id + "?toggle=4"}>
+        {userInfo && !isPending && data.length > 0 && <Link to={"/static/" + data[0].id + "?toggle=4"}>
                     <EditIcon color="secondary" /></Link>}
 
       </div>

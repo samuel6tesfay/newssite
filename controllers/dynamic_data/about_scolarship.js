@@ -5,12 +5,12 @@ const create_about_scolarship = async (req,res) =>{
     try {
         
         const { title, discription, button } = req.body;
-         const { filename, mimetype, size } = req.file;
-        const filepath = req.file.path;
+        //  const { filename, mimetype, size } = req.file;
+        // const filepath = req.file.path;
         
         const user_id = req.user.id;
         const new_about_scolarship = await pool.query(
-            "insert into about_scolarship (title,discription,button,filename,filepath,user_id) values($1,$2,$3,$4,$5,$6)",[title,discription,button,filename,filepath,user_id]
+            "insert into about_scolarship (title,discription,button,user_id) values($1,$2,$3,$4)",[title,discription,button,user_id]
         );  
 
         res.json(new_about_scolarship[0])
