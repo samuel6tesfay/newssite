@@ -98,19 +98,25 @@ const update_view = async (req, res) => {
 
 // update todo
 const updatethread = async (req,res) =>{
-    try{
-        const { id } = req.params;
-        // const { username, body, link } = req.body;
+    try {
+                                console.log("xx");
 
-        console.log(req.query);
+        const { id } = req.params;
+        const { username, body, link } = req.body;
+        console.log(req.body);
+
+        // console.log(req.query);
         // const { filename, path } = req.file.filename && req.file ;
         // pool.query("update threads set   username = $1 , body = $2 , link = $3 , filename=$4, filepath=$5 where id = $6", [username, body, link, filename, path, id])
         pool.query("update threads set   username = $1 , body = $2 , link = $3  where id = $4",[username,body,link,id]);
 
+                        console.log("xx");
+
         res.json("thread is successfully updated"); 
     } catch (err) {
+                console.log("xx");
+
         res.json("error");
-        console.log(err.message);
     }
 }
 

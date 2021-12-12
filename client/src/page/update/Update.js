@@ -1,7 +1,6 @@
 import React,{ useState,useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import backendApi from "../api"
-import img from './img.png';
 
 import {
   useLocation
@@ -89,16 +88,14 @@ const Update = () => {
 
 	const updateThread = (e) => {
 		e.preventDefault();
+		console.log("update thread")
 			
-			const formData = new FormData();
-            formData.append('image', image);
-			formData.append('username',username);
-			formData.append('body',body);
-			formData.append('link',link);
-			backendApi.put('/thread/'+id+"?state="+2,formData,
-			    {
-         			 'Content-Type': 'multipart/form-data'
-        		}
+			backendApi.put("/thread/"+id,  
+        		{
+				username:username,
+				body: body,
+				link: link,
+			}	
 			
 		);
 		history.push("/");
@@ -191,14 +188,14 @@ const Update = () => {
 								onChange={(e) => setBody(e.target.value)}
 						
 						></textarea>
-						<input 
+						{/* <input 
 							type="file"
 							id="myFile"
 							name="filename"
 							accept="image/*"
 							onChange={fileSelectedHandler}
 							
-						/>
+						/> */}
 						{!isPending && <button onClick={updateThread} style={{background:"gray",marginRight:"20px"}}>Update</button>}
 						{isPending && <button disabled>Updating....</button>}
 						{!isPending && <button onClick={deleteThread}>delete</button>}
