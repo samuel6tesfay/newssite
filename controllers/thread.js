@@ -38,7 +38,7 @@ const threads = async (req,res) =>{
 
         const limit = 10;
 
-        const allThreads = await pool.query("select * from threads WHERE body ~* '.*"+filter+".*' ORDER BY  "+sort+" DESC LIMIT $1 OFFSET $2  ", [limit, limit*page]);
+        const allThreads = await pool.query("select * from threads WHERE username ~* '.*"+filter+".*' OR  body ~* '.*"+filter+".*' ORDER BY  "+sort+" DESC LIMIT $1 OFFSET $2  ", [limit, limit*page]);
         // res.send("");
         // console.log(allThreads);
         res.json({ "thread": allThreads.rows , "count":rows[0].count,"limit":limit });
