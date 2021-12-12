@@ -14,7 +14,7 @@ const getToken = () => {
 
 console.log(getToken())
 export default axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: "https://tyassociation.herokuapp.com/",
   headers: {
         'x-access-token': getToken(),
         // 'Content-Type':'multipart/form-data'
