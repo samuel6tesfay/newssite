@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import EditIcon from '@mui/icons-material/Edit';
 import backendApi from "../../page/api"
 import { useHistory } from "react-router";
+import { format } from 'date-fns'
+
 
 
 // AiOutlineRetweet
@@ -110,7 +112,7 @@ const Card = (props) => {
                              </Link>
                              : ""
                          }
-                         <span>{thread.views} views  </span>
+                         <span>{thread.views} views  {format(new Date(thread.date), 'd MMMM Y')} </span>
                 </div>
                     </div>
                     

@@ -18,20 +18,26 @@ const Contact = () => {
   const [message, setMessage] = useState("");
   const history = useHistory();
 
+  const [isDataSend, setIsDataSend] = useState("")
+  const [pending, setPending] = useState(false);
+
   const { data, isPending, error } = useAxios("/contacts");
 
 
-  const sendMessage = (e) => {
-		
-		e.preventDefault();
-		backendApi.post("/sendmail",
+  const sendMessage = async (e) => {
+    e.preventDefault();
+    setPending(true);
+    const { data } = await backendApi.post("/sendmail",
       {
         name:name,
 				email: email,
 				message: message,		
 			}			
-		);
-		history.push("/");
+    );
+    console.log(data);
+    setIsDataSend(data);
+    history.push("/");
+    setPending(false);
 	}
 
     return (
@@ -56,9 +62,13 @@ const Contact = () => {
                   </h2>
                 }
 
-              <form action="" method="get" onSubmit={sendMessage}>
-                <div class="row">
-                  <div class="col-lg-6 col-12">
+                <form action="" method="get" onSubmit={sendMessage}>
+                  {isDataSend}
+
+                  <div class="row">
+
+                    <div class="col-lg-6 col-12">
+
                       <input
                         type="text"
                         class="form-control"
@@ -100,10 +110,17 @@ const Contact = () => {
                   </div>
 
                   <div class="ml-lg-auto col-lg-5 col-12">
-                      <input
+                      {pending && <input
+                        type="submit"
+                        class="form-control submit-btn"
+                        disabled
+                        value="Submitting......" />}
+                      
+                      {!pending && <input
                         type="submit"
                         class="form-control submit-btn"
                         value="Submit" />
+                      }
                   </div>
                 </div>
               </form>
