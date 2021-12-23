@@ -11,8 +11,8 @@ CREATE TABLE threads(
      username varchar(255),
      body varchar,
      link varchar(255),
-     filename varchar(255),
-     filepath varchar(255),
+     avatar varchar(255),
+     cloudinary_id varchar(255),
      date DATE NOT NULL DEFAULT CURRENT_DATE,
      user_id   INT  references users(id)
  );
@@ -38,21 +38,12 @@ CREATE TABLE scolarships(
      body varchar,
      deadline varchar(255),
      link varchar(255),
-     filename varchar(255),
-     filepath varchar(255),
+     avatar varchar(255),
+     cloudinary_id varchar(255),
      user_id   INT  references users(id)
 );
 
-CREATE TABLE admin_header(
-     id serial primary key,
-     logo varchar(255),
-     logolink varchar(255),
-     menu1 varchar(255),
-     menu1link varchar(255),
-     menu2 varchar(255),
-     menu2link varchar(255),
-     user_id   INT  references users(id)
-);
+
 
 CREATE TABLE header(
      id serial primary key,
@@ -64,8 +55,6 @@ CREATE TABLE header(
      menu2link varchar(255),
      menu3 varchar(255),
      menu3link varchar(255),
-     menu4 varchar(255),
-     menu4link varchar(255),
      user_id   INT  references users(id)
 );
 
@@ -82,8 +71,8 @@ CREATE TABLE about_scolarship(
      title varchar(255),
      discription varchar,
      button varchar(255),
-     filename varchar(255),
-     filepath varchar(255),
+     avatar varchar(255),
+     cloudinary_id varchar(255),
      user_id INT references users(id)
 
 );

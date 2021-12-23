@@ -19,13 +19,15 @@ const SignIn = () => {
 		dispatch(login(email, password));
 		setEmail("");
 		setPassword("");
+		
 	};
 
-	// useEffect(() => {
-	// 	if (userInfo) {
-	// 	history.push("/");
-	// 	}
-	// }, [history, userInfo]);
+	useEffect(() => {
+		if (userInfo) {
+			    window.location.reload();
+;
+		}
+	}, [history, userInfo]);
 
  
 	

@@ -57,7 +57,7 @@ const Contact = () => {
                 {!isPending && data.length > 0 &&
                   <h2 class="mb-4" style={{ color: "#000" }}>
                     {data[0].title}
-                    {userInfo && <Link to={"/static/" + data[0].id + "?toggle=3"}>
+                    {userInfo && <Link to={"/" + data[0].id + "?toggle=6"}>
                     <EditIcon color="secondary" /></Link>}
                   </h2>
                 }
@@ -112,7 +112,7 @@ const Contact = () => {
                   <div class="ml-lg-auto col-lg-5 col-12">
                       {pending && <input
                         type="submit"
-                        class="form-control submit-btn"
+                        class="form-control"
                         disabled
                         value="Submitting......" />}
                       

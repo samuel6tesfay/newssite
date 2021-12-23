@@ -63,15 +63,17 @@ const signup = async (req,res) => {
     }
 }
 
-const login = async(req,res) => {
-    
-    try{
-        const { email, password } = req.body;
-        const user = await pool.query(`SELECT * FROM users WHERE email = $1`,[email])
+const login = async (req, res) => {
 
+    
+    try {
+
+        const { email, password } = req.body;
+        const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [email])
+        // console.log(user);
         if (user.rows.length > 0) {
             
-            // console.log("login enter");
+            console.log("login enter");
             
             try {
                 const auth = await bcrypt.compare(password, user.rows[0].password);
@@ -82,8 +84,6 @@ const login = async(req,res) => {
                     // res.cookie('userInfo', token, { maxAge: maxAge * 1000 });
                     // res.json(token);
                     res.send({'userInfo':token})
-                    res.status(200);
-
                     res.json({ id:user.id,isAdmin:user.isAdmin });
                 }
                 else {

@@ -1,11 +1,10 @@
 {
   "name": "nodejs",
-  "proxy": "http://127.0.0.1:5000",
   "version": "1.0.0",
-  "engines":{
-				"node":"14.15.4",
-				"npm" : "8.2.0"
-	},
+  "engines": {
+    "node": "14.15.4",
+    "npm": "8.2.0"
+  },
   "description": "",
   "main": "app.js",
   "directories": {
@@ -26,6 +25,7 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
+    "cloudinary": "^1.27.1",
     "concurrently": "^5.3.0",
     "coo": "^1.0.0",
     "cookie-parser": "^1.4.5",

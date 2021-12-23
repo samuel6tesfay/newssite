@@ -9,7 +9,6 @@ import Update from "./page/update/Update";
 import ScolarShip from "./page/scolarship/ScolarShip";
 import Contact from "./component/contact/Contact";
 import { useSelector } from "react-redux";
-import UpdateStatic from "./page/update/UpdateStatic";
 
 
 function App() {
@@ -21,38 +20,54 @@ function App() {
       
     <Router>
       <div className="App">
-
-                <NavBar/>
-        <div className="content">
             <Switch>
               <Route exact path="/">
-                <Home/>
+                <NavBar />
+                  <div className="content">
+                    <Home />
+                    <Contact />
+                  </div>
+                <Footer/>
               </Route>
           
               <Route exact path="/create">
-                <Create/>
-            </Route>
+                <Create />
+              </Route>
             
-            <Route exact path="/signin">
-                  <SignIn/>
+              <Route exact path="/signin">
+                <NavBar />
+                <div className="content">
+                    <SignIn/>
+                </div>
               </Route>
+          
               <Route exact path="/donate">
-               <Donate/>
-            </Route>
-            <Route exact path="/scolarship">
-              <ScolarShip />
-            </Route>  
-              <Route exact path="/:id">
-                  <Update/>
-            </Route>
-            <Route exact path="/static/:id">
-                  <UpdateStatic/>
+                <Donate/>
               </Route>
+          
+             <Route exact path="/scolarship">
+              <NavBar />
+              <div className="content">
+                <ScolarShip />
+                <Contact />
+              </div>
+              <Footer/>
+            </Route>
+          
+            <Route exact path="/:id">
+              <div className="content">
+                <Update/>
+              </div>
+            </Route>
+          
+            <Route  path="*">
+              <div className="content">
+                <Home/>
+              </div>
+            </Route>
+
           </Switch>
-        </div>
-       <Contact />
-        <Footer/>
-        </div>
+      </div> 
     </Router>
 
   );

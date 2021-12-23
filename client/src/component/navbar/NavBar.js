@@ -2,14 +2,16 @@ import './NavBar.css'; // Import css modules stylesheet as styles
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../actions/userActions";
-import { useEffect } from "react";
+import { useEffect , useState } from "react";
 import { useHistory } from "react-router";
 import useAxios from '../../page/useAxios';
 import EditIcon from '@mui/icons-material/Edit';
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 const NavBar = () => {
 
+	const [toggle, setToggle] = useState(true);
 	const dispatch = useDispatch();
     const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
@@ -17,40 +19,41 @@ const NavBar = () => {
 	const logoutHandler = () => dispatch(logout());
 	useEffect(() => { history.push("/") }, [userInfo]);
 	
-	const { data, isPending, error } = useAxios("/headers");
-	const { data:adminData, isPending:isAdminPending, error:adminError } = useAxios("/admin_headers");
+	const { data, isPending } = useAxios("/headers");
 
 
 	return (
-		<div className="navbar">
-			{isPending || isAdminPending && <div>Loading.....</div>}
-			{!isPending && !isAdminPending && 
+		
+		<div className={isPending ? "navbar skeleton skeleton-text":"navbar display"} >
+				
+			{isPending && <div className="skeleton skeleton-text">
+			</div>}
+			
+			{!isPending  && 
 				<div className="container  flex">
-				{!isPending && <div>
-					{!userInfo && data.length > 0 && <h2 className="logo"><Link to="/"> {data[0].logo}</Link></h2>}
-					{userInfo && adminData.length > 0 &&  <h2 className="logo"><Link to="/"> {adminData[0].logo}</Link></h2>
+				{!isPending &&
+					<div>
+						{data.length > 0 && <h2 className="logo"><Link to={data[0].logolink}> {data[0].logo}</Link></h2>}
+					</div> 
 				}
+				<nav>
+					<div className="menu-icon" onClick={()=>setToggle(!toggle)}><MenuIcon/></div>
 
-				</div> 
-					
-					}
-					<nav>
-						<ul>
-							{!userInfo && data.length > 0 && <li><Link to="/scolarship">{data[0].menu1}</Link></li>}
-							{!userInfo && data.length > 0 && <li><a href="#contact">{data[0].menu2}</a></li>}
-							{!userInfo && data.length > 0 && <li><a href="#footer">{data[0].menu3}</a></li>}
-							{!userInfo && data.length > 0 &&<li><Link to="/">{data[0].menu4}</Link></li>}
-							{!userInfo && data.length > 0 && <li><Link to="/signin">Login</Link></li>}
+					<ul className={toggle&&"ulmenu"}>
+						{!userInfo && data.length > 0 && <li onClick={() => setToggle(!toggle)}><Link to={data[0].menu1link}>{data[0].menu1}</Link></li>}
+						{!userInfo && data.length > 0 && <li onClick={() => setToggle(!toggle)}><a href={data[0].menu3link}>{data[0].menu3}</a></li>}
+						{!userInfo && data.length > 0 && <li onClick={()=>setToggle(!toggle)}><Link to="/signin">Login</Link></li>}
 
-							{userInfo && adminData.length > 0 && <li><Link to="/scolarship">{adminData[0].menu1}</Link></li>}
-							{userInfo && adminData.length > 0 && <li><Link to="/create">{adminData[0].menu2}</Link></li>}
-							{userInfo && adminData.length > 0 && <li><Link to="/" onClick={e => logoutHandler(e)}>Logout</Link></li>}
-							{userInfo && adminData.length > 0 && <li> < Link to={"/static/" + adminData[0].id+"?toggle=1"}>
-                                 <EditIcon color="secondary" />
-                             </Link></li>}
-						
-						</ul>
-					</nav>
+						{userInfo && data.length > 0 && <li onClick={() => setToggle(!toggle)}><Link to={data[0].menu1link}>{data[0].menu1}</Link></li>}
+						{userInfo && data.length > 0 && <li onClick={() => setToggle(!toggle)}><Link to={data[0].menu2link}>{data[0].menu2}</Link></li>}
+						{userInfo && data.length > 0 && <li onClick={()=>setToggle(!toggle)}><Link to="/" onClick={e => logoutHandler(e)}>Logout</Link></li>}
+						{userInfo && data.length > 0 && <li onClick={() => setToggle(!toggle)}>
+																< Link to={"/" + data[0].id + "?toggle=5"}>
+																		<EditIcon color="secondary" />
+																</Link>
+															 </li>}
+					</ul>
+				</nav>
 				</div>
 			}
 			

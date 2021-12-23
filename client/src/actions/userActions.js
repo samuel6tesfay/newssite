@@ -36,7 +36,7 @@ export const login = (email, password) => async (dispatch) => {
 
     data !== "enter correct password" && data !== "enter correct email" && localStorage.setItem("userInfo", JSON.stringify(data));
 
-    
+
     
 
   } catch (error) {

@@ -18,6 +18,7 @@ export default function ScolarShip() {
   const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
 
+  console.log(img);
    // const [currentPage, setCurrentPage] = useState(1);
   const [page, setPage] = useState(0);
   const [totalpage,setTotalpage] = useState();
@@ -57,23 +58,19 @@ export default function ScolarShip() {
                         .then(function (response) {
                           setCurrentPosts(response.data.scolarship);
                           setCurrentPosts(response.data.scolarship.map((currentpost) => ({ ...currentpost, toggle: true })));
-
-                            setPostsPerPag(response.data.limit);
-                            setTotalpage(response.data.count);
-                            console.log(response.data.count);
-                                // setError(null);			
-								
-							})
+                          setPostsPerPag(response.data.limit);
+                          setTotalpage(response.data.count);
+							        })
                         .catch(function (error) {
                                 console.log(error);
                         })
                         .then(function () {
                                 // always executed
                         }
-		);
-    }
+		  );
+}
 
-    const prev = () => {
+  const prev = () => {
 		if (page >= 1) {
 			setPage(page - 1);
         } else {
@@ -81,7 +78,7 @@ export default function ScolarShip() {
         }
 	};
 
-    const next = () => {
+  const next = () => {
         if (page > totalpage / postsPerPage-2) {
                 setPage(0);
 
@@ -91,9 +88,9 @@ export default function ScolarShip() {
         }
     };
     
-    useEffect(() => {
-        getdata();
-    },[page])
+  useEffect(() => {
+      getdata();
+  },[page])
  
   return (
     <div className="testimonials" id="testimonials">
@@ -101,7 +98,7 @@ export default function ScolarShip() {
       <div class="homeaboutscolar">
 
           <div class="image1">
-              <img src={img} alt=""/>
+          {!isPending && data.length > 0 && <img src={data[0].avatar} alt="" />}
           </div>
 
           <div class="content1">
@@ -109,7 +106,7 @@ export default function ScolarShip() {
               <p>{!isPending && data.length > 0 && data[0].discription}</p>
               <a href="#" class="btn1">{!isPending && data.length > 0 && data[0].button}</a>
         </div>
-        {userInfo && !isPending && data.length > 0 && <Link to={"/static/" + data[0].id + "?toggle=4"}>
+        {userInfo && !isPending && data.length > 0 && <Link to={"/" + data[0].id + "?toggle=7"}>
                     <EditIcon color="secondary" /></Link>}
 
       </div>
@@ -120,7 +117,7 @@ export default function ScolarShip() {
             <div className="top">
               {/* <img src="assets/right-arrow.png" className="left" alt="" /> */}
                <img 
-                  src={"https://tyassociation.herokuapp.com/scolarship/readImage/"+ scolarship.filename }
+                  src={scolarship.avatar}
                   alt="Photo"
                   className="user"
                 />

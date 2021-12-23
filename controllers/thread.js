@@ -1,74 +1,38 @@
 const pool = require('../models/db')
-const path = require('path')
+const cloudinary = require("../middleware/cloudinary");
 
 //create a thread
-const createthread = async (req,res) =>{
+const createthread = async (req, res) => {
     try {
-        
-        //  console.log(req.file)
-        const { username, body, link } = req.body;
-        // console.log(req.body);
-        const { filename,path} = req.file;
-        console.log(req.file);
-        console.log(req.body.username);
-        
-        // console.log(filepath,filename,mimetype,size);
-
         const user_id = req.user.id;
-        const thread = pool.query(
-            "insert into threads (username,body,link,filename,filepath,user_id) values($1,$2,$3,$4,$5,$6)",[username,body,link,filename,path,user_id]
+        const result = await cloudinary.uploader.upload(req.file.path);
+        console.log("ye")
+        console.log(result);
+        console.log(req.body);
+        const { username, body, link } = req.body;
+        const avatar = result.secure_url;
+        const cloudinary_id = result.public_id;
+        const thread = await pool.query(
+            "insert into threads (username,body,link,avatar,cloudinary_id,user_id) values($1,$2,$3,$4,$5,$6)",[username,body,link,avatar,cloudinary_id,user_id]
         );  
-
-        res.json(thread[0])
-        
+        res.json(thread[0])      
     } catch (err) {
         res.json("error");
-        console.log(err.message);
     }
 }
 
 // get all todo
 const threads = async (req,res) =>{
     try {
-
         const { page,filter,sort } = req.query;
-        console.log(req.query);
-
         const {rows} = await pool.query("SELECT COUNT(*) from threads");
-
         const limit = 10;
-
         const allThreads = await pool.query("select * from threads WHERE username ~* '.*"+filter+".*' OR  body ~* '.*"+filter+".*' ORDER BY  "+sort+" DESC LIMIT $1 OFFSET $2  ", [limit, limit*page]);
-        // res.send("");
-        // console.log(allThreads);
-        res.json({ "thread": allThreads.rows , "count":rows[0].count,"limit":limit });
-       
+        res.json({ "thread": allThreads.rows , "count":rows[0].count,"limit":limit });   
     } catch (err) {
         res.json("error");
-        console.log(err.message);
     }
 }
-
-// read thread image file
-const readImage = async (req,res) =>{
-    try {
-
-        
-        const { filename } = req.params;
-        // console.log(filename);
-
-        const thread = await pool.query("select * from threads where filename = $1", [ filename ]);
-        
-        const dirname = path.resolve();
-        const fullfilepath = path.join(dirname, thread.rows[0].filepath);
-        res.sendFile(fullfilepath)       
-       
-    } catch (err) {
-        res.json("error");
-        console.log(err.message);
-    }
-}
-
 
 // get a todo
 const thread = async (req,res) =>{
@@ -76,13 +40,13 @@ const thread = async (req,res) =>{
         const { id } = req.params;
         const thread = await pool.query("select * from threads where id = $1", [id]);
         res.json(thread.rows[0]);
-
     } catch (err) {
         res.json("error");
         console.log(err.message);
     }
 }
 
+//update views
 const update_view = async (req, res) => {
     try {
         const { id } = req.params;
@@ -99,23 +63,22 @@ const update_view = async (req, res) => {
 // update todo
 const updatethread = async (req,res) =>{
     try {
-                                console.log("xx");
-
         const { id } = req.params;
-        const { username, body, link } = req.body;
-        console.log(req.body);
-
-        // console.log(req.query);
-        // const { filename, path } = req.file.filename && req.file ;
-        // pool.query("update threads set   username = $1 , body = $2 , link = $3 , filename=$4, filepath=$5 where id = $6", [username, body, link, filename, path, id])
-        pool.query("update threads set   username = $1 , body = $2 , link = $3  where id = $4",[username,body,link,id]);
-
-                        console.log("xx");
-
+        const thread = await pool.query("select * from threads where id = $1", [id]);
+        await cloudinary.uploader.destroy(thread.rows[0].cloudinary_id);
+        // Upload image to cloudinary
+        let result;
+        if (req.file) {
+            result = await cloudinary.uploader.upload(req.file.path);
+        }
+        const username = req.body.username || thread.rows[0].username;
+        const body = req.body.body || thread.rows[0].body;
+        const link = req.body.link || thread.rows[0].link;
+        const avatar = result?.secure_url || thread.rows[0].avatar;
+        const cloudinary_id = result?.public_id || thread.rows[0].cloudinary_id;
+        await pool.query("update threads set  username = $1 , body = $2 , link = $3 , avatar=$4, cloudinary_id=$5 where id = $6", [username, body, link, avatar, cloudinary_id, id])
         res.json("thread is successfully updated"); 
-    } catch (err) {
-                console.log("xx");
-
+    }catch(err) {
         res.json("error");
     }
 }
@@ -124,7 +87,9 @@ const updatethread = async (req,res) =>{
 const deletethread = async (req,res) =>{
     try{
         const { id } = req.params;
-        pool.query("delete from threads where id=$1",[id]);
+        const thread = await pool.query("select * from threads where id = $1", [id]);
+        await cloudinary.uploader.destroy(thread.rows[0].cloudinary_id);
+        await pool.query("delete from threads where id=$1", [id]);
         res.json("thread is successfully deleted");
       
     } catch (err) {
@@ -134,5 +99,5 @@ const deletethread = async (req,res) =>{
 }
 
 module.exports = {
-    createthread,threads , readImage, thread , updatethread , deletethread ,update_view
+    createthread,threads , thread , updatethread , deletethread ,update_view
 }

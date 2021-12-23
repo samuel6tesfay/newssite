@@ -7,7 +7,7 @@ const trendRoutes = require('./routes/trendsRoutes')
 const relevant_peopleRoutes = require('./routes/relevant_peopleRoutes')
 const scolarshipRoutes = require('./routes/scolarshipRoutes')
 const sendmailRoutes = require('./routes/sendMailRoutes')
-const {headerRoutes,adminHeaderRoutes, aboutScolarshipRoutes,contactRoutes,footerRoutes } = require('./routes/dynamics_data')
+const {headerRoutes, aboutScolarshipRoutes,contactRoutes,footerRoutes } = require('./routes/dynamics_data')
 
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -25,7 +25,6 @@ app.use(scolarshipRoutes)
 app.use(sendmailRoutes)
 
 app.use(headerRoutes)
-app.use(adminHeaderRoutes)
 app.use(aboutScolarshipRoutes)
 app.use(contactRoutes)
 app.use(footerRoutes)
@@ -42,5 +41,5 @@ if (process.env.NODE_ENV === 'production') {
 
 
 
-app.listen(process.env.PORT || 5000,()=>console.log("server up and running 5000"));
+app.listen( process.env.PORT || 5000,()=>console.log("server up and running 5000"));
 

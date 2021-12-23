@@ -42,7 +42,10 @@ h2 {
 	color: #ffff;
 	height: auto;
 	z-index: 1000;
-	background: linear-gradient(to right, #c28348, #bd5060);
+
+}
+.navbar.display{
+		background: linear-gradient(to right, #c28348, #bd5060);
 
 }
 .navbar ul {
@@ -71,8 +74,13 @@ h2 {
 	justify-content: center;
 }
 
+.menu-icon{
+	display: none  !important;
+}
+
 /* mobile */
 @media (max-width: 700px) {
+	
 	.navbar {
 		/* height: 110px; */
         height: auto;
@@ -85,5 +93,12 @@ h2 {
         		flex-direction: column;
 
 		background-color: rgba(0, 0, 0, 0.1);
+	}
+	.navbar ul.ulmenu{
+		display:none;
+	}
+	.menu-icon{
+		float:right;
+		display: inline-block  !important;
 	}
 }

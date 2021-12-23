@@ -92,7 +92,7 @@ export default function Footer() {
                                         <li><a href="#" target="_blank"><i className={!isPending && data.length > 0 && data[0].icon4}></i></a></li>
                                         <li><a href="#" target="_blank"><i className={!isPending && data.length > 0 && data[0].icon5}></i></a></li>
                                     {/* <li><a href="#" target="_blank"><i className="fa fa-dribbble"></i></a></li> */}
-                                        {userInfo && !isPending && data.length > 0 && <Link to={"/static/" + data[0].id + "?toggle=5"}>
+                                        {userInfo && !isPending && data.length > 0 && <Link to={"/" + data[0].id + "?toggle=8"}>
                     <EditIcon color="secondary" /></Link>}
                                 </ul>
 

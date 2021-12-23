@@ -1,65 +1,30 @@
 const pool = require('../models/db')
-const path = require('path')
+const cloudinary = require("../middleware/cloudinary");
 
 //create a scolarship
 const createscolarship = async (req,res) =>{
     try {
-        
-        console.log("...")
-        //  console.log(req.file)
-        const {deadline,link,body } = req.body;
-        console.log(req.body);
-        const { filename, mimetype, size } = req.file;
-        const filepath = req.file.path;
-        console.log(filepath);
-        console.log(req.body.body);
-        
-        // console.log(filepath,filename,mimetype,size);
-
         const user_id = req.user.id;
-        const newScolarship = await pool.query(
-            "insert into scolarships (body,deadline,link,filename,filepath,user_id) values($1,$2,$3,$4,$5,$6)",[body,deadline,link,filename,filepath,user_id]
-        );  
-
+        const result = await cloudinary.uploader.upload(req.file.path);
+        const {deadline,link,body} = req.body;
+        const avatar = result.secure_url;
+        const cloudinary_id = result.public_id;
+        const newScolarship = await pool.query("insert into scolarships (body,deadline,link,avatar,cloudinary_id,user_id) values($1,$2,$3,$4,$5,$6)",[body,deadline,link,avatar,cloudinary_id,user_id]);  
         res.json(newScolarship[0])
-        
     } catch (err) {
         res.json("error");
-        console.log(err.message);
     }
 }
-
 // get all scolarship
 const scolarships = async (req,res) =>{
     try{
        const { page } = req.query;
-        console.log(page);
-        const limit = 20;
+       const limit = 20;
        const {rows} = await pool.query("SELECT COUNT(*) from scolarships");
        const allScolarships = await pool.query("select * from scolarships ORDER BY id DESC LIMIT $1 OFFSET $2", [limit, limit*page]);
-        // res.send("");
        res.json({ "scolarship": allScolarships.rows , "count":rows[0].count,"limit":limit });
     } catch (err) {
         res.json("error");
-        console.log(err.message);
-    }
-}
-
-// read scolarship image file
-const readImage = async (req,res) =>{
-    try {
-
-        console.log("readImage");
-        const { filename } = req.params;
-        // console.log(filename);
-        const scolarship = await pool.query("select * from scolarships where filename = $1", [ filename ]);
-        // console.log(thread);
-        const dirname = path.resolve();
-        const fullfilepath = path.join(dirname, scolarship.rows[0].filepath);
-        res.sendFile(fullfilepath)
-    } catch (err) {
-        res.json("error");
-        console.log(err.message);
     }
 }
 
@@ -69,20 +34,30 @@ const scolarship = async (req,res) =>{
         const { id } = req.params;
         const scolarship = await pool.query("select * from scolarships where id = $1", [id]);
         res.json(scolarship.rows[0]);
-
     } catch (err) {
         res.json("error");
-        console.log(err.message);
     }
 }
 
 // update scolarship
 const updatescolarship = async (req,res) =>{
     try{
+        
         const { id } = req.params;
-        const { body,deadline,link} = req.body;
-        pool.query("update scolarships set   body = $1 , deadline = $2 , link = $3 where id = $4",[body,deadline,link,id]);
-        res.json("scolarship is successfully updated");  
+        const scolarship = await pool.query("select * from scolarships where id = $1", [id]);
+        await cloudinary.uploader.destroy(scolarship.rows[0].cloudinary_id);
+        // Upload image to cloudinary
+        let result;
+        if (req.file) {
+            result = await cloudinary.uploader.upload(req.file.path);
+        }
+        const deadline = req.body.deadline || scolarship.rows[0].deadline;
+        const body = req.body.body || scolarship.rows[0].body;
+        const link = req.body.link || scolarship.rows[0].link;
+        const avatar = result?.secure_url || scolarship.rows[0].avatar;
+        const cloudinary_id = result?.public_id || scolarship.rows[0].cloudinary_id;
+        await pool.query("update scolarships set  body = $1 , deadline = $2 , link = $3 , avatar=$4, cloudinary_id=$5 where id = $6", [body, deadline, link, avatar, cloudinary_id, id])
+        res.json("scolarsship is successfully updated");
     } catch (err) {
         res.json("error");
         console.log(err.message);
@@ -92,8 +67,11 @@ const updatescolarship = async (req,res) =>{
 // delete scolarship
 const deletescolarship = async (req,res) =>{
     try{
+       
         const { id } = req.params;
-        pool.query("delete from scolarships where id=$1",[id]);
+        const scolarship = await pool.query("select * from scolarships where id = $1", [id]);
+        await cloudinary.uploader.destroy(scolarship.rows[0].cloudinary_id);
+        await pool.query("delete from scolarships where id=$1", [id]);
         res.json("scolarship is successfully deleted");
        
     } catch (err) {
@@ -103,5 +81,5 @@ const deletescolarship = async (req,res) =>{
 }
 
 module.exports = {
-    createscolarship,scolarships , readImage, scolarship , updatescolarship , deletescolarship
+    createscolarship,scolarships , scolarship , updatescolarship , deletescolarship 
 }
