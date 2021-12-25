@@ -3,24 +3,31 @@ import backendApi from "../api"
 import useAxios from '../useAxios';
 import { useHistory } from "react-router";
 
-import './update.css'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import Textfield from '../../component/Textfield';
 import Button1 from '../../component/Button'
+import {isLink} from '../../utils/validation/Validation'
+
 
 const UpdateRelevantPeople = (props) => {
 	const [username,setusername] = useState();
 	const [body, setBody] = useState("");
 	const [link, setLink] = useState("");
+	const [error,setError] = useState("");
+
 	const history = useHistory();
-    const remove = (e) => {
+    const remove = async(e) => {
 		e.preventDefault();
-		backendApi.delete("/relevant_people/"+props.id);
+		const { data } = await backendApi.delete("/relevant_people/"+props.id);
 		history.push("/");
+		data && window.location.reload();
 	}
-	const update = (e) => {
+	const update = async(e) => {
 		e.preventDefault();
-		backendApi.put("/relevant_people/"+props.id,
+		if (!isLink(link))
+			return setError("link must start with https:// or http://")	
+		
+		const { data } = await backendApi.put("/relevant_people/"+props.id,
 			{
 				name:username,
 				body: body,
@@ -28,6 +35,7 @@ const UpdateRelevantPeople = (props) => {
 			}			
 		);
 		history.push("/");
+		data && window.location.reload();
 	}
     const {data} = useAxios("/relevant_people/"+props.id);
 
@@ -44,7 +52,8 @@ const UpdateRelevantPeople = (props) => {
 					<form >
 						<Textfield label="Name" rows={1} value={username} setValue={setBody} />
 						<Textfield label="Description" rows={5} value={body} setValue={setBody} />
-						<Textfield label="Link" rows={1} value={link} setValue={setLink} />
+						{error && <span style={{ color: 'red' }}>{error}</span>}
+						<Textfield label="Link" rows={1} value={link} setValue={setLink} error={error}/>
 						<Button1 submit="Update" onClick={update} endIcon={<KeyboardArrowRightIcon/>} sx={{ margin: '50px'}} />
 						<Button1 submit="Delete" onClick={remove}  sx={{margin:'50px',background:'red'}}/>
 					</form>

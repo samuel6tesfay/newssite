@@ -1,6 +1,5 @@
 import React,{ useState,useEffect } from "react";
 import { useParams } from "react-router";
-import './update.css'
 import { useLocation } from "react-router-dom"
 
 import UpdateThread from "./UpdateThread";

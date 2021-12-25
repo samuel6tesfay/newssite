@@ -3,7 +3,6 @@ import backendApi from "../api"
 import useAxios from '../useAxios';
 import { useHistory } from "react-router";
 
-import './update.css'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import Textfield from '../../component/Textfield';
 import Button1 from '../../component/Button'
@@ -11,8 +10,6 @@ import ImagePreview from '../../component/ImagePreview'
 
 
 const UpdateAboutScolarShip = (props) => {
-
-	console.log("y");
 
 	const [title, setTitle] = useState("");
     const [discription, setDiscription] = useState("");
@@ -30,24 +27,24 @@ const UpdateAboutScolarShip = (props) => {
 	};
     
     const {data} = useAxios("/about_scolarship/"+props.id);
-    const update_about_scolarship = (e) => {
+    const update_about_scolarship = async(e) => {
 		e.preventDefault();
 		const formData = new FormData();
 		formData.append('image', image);
 		formData.append('title',title);
 		formData.append('discription',discription);
 		formData.append('button',button);
-		backendApi.put('/about_scolarship/'+props.id,formData,
+		const { data } = await backendApi.put('/about_scolarship/'+props.id,formData,
 			{
 					'Content-Type': 'multipart/form-data'
 			}
 		)
 		history.push("/");
+		data && window.location.reload();
 	}
 
-
 	useEffect(() => {
-	console.log("y");
+		setTitle(data.title);
         setDiscription(data.discription);
         setButton(data.button);
         setAvatar(data.avatar);

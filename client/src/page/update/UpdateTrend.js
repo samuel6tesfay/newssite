@@ -3,7 +3,6 @@ import { useHistory } from "react-router";
 import backendApi from "../api"
 import useAxios from '../useAxios';
 
-import './update.css'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import Textfield from '../../component/Textfield';
 import Button1 from '../../component/Button'
@@ -12,22 +11,26 @@ const UpdateTrend = (props) => {
 	const [body, setBody] = useState("");
 	const [link, setLink] = useState("");
 	const history = useHistory();
-    const remove = (e) => {
+    const remove = async(e) => {
 		e.preventDefault();
-		backendApi.delete("/trend/"+props.id);
+		const { data } = await backendApi.delete("/trend/"+props.id);
 		history.push("/");
+		data &&  window.location.reload();
+
 	}
-	const update = (e) => {
+	const update = async(e) => {
 		e.preventDefault();
-		backendApi.put("/trend/"+props.id,
+		const { data } = await backendApi.put("/trend/"+props.id,
 			{
 				body: body,
 				link: link,		
 			}			
 		);
 		history.push("/");
+		data &&  window.location.reload();
+
     }
-    const {data} = useAxios("/trend/"+props.id);
+    const {data,isPending} = useAxios("/trend/"+props.id);
 
     useEffect(() => {
         setBody(data.body);

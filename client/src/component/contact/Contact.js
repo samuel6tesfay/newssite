@@ -57,7 +57,7 @@ const Contact = () => {
                 {!isPending && data.length > 0 &&
                   <h2 class="mb-4" style={{ color: "#000" }}>
                     {data[0].title}
-                    {userInfo && <Link to={"/" + data[0].id + "?toggle=6"}>
+                    {userInfo && <Link to={"/update/" + data[0].id + "?toggle=6"}>
                     <EditIcon color="secondary" /></Link>}
                   </h2>
                 }

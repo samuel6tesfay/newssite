@@ -4,6 +4,7 @@ const Textfield = (props) => {
         <TextField 
             label={props.label}
             variant="outlined"
+            error={props.error}
             color="secondary"
             multiline
             rows={props.rows}

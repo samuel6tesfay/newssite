@@ -48,7 +48,7 @@ const NavBar = () => {
 						{userInfo && data.length > 0 && <li onClick={() => setToggle(!toggle)}><Link to={data[0].menu2link}>{data[0].menu2}</Link></li>}
 						{userInfo && data.length > 0 && <li onClick={()=>setToggle(!toggle)}><Link to="/" onClick={e => logoutHandler(e)}>Logout</Link></li>}
 						{userInfo && data.length > 0 && <li onClick={() => setToggle(!toggle)}>
-																< Link to={"/" + data[0].id + "?toggle=5"}>
+																< Link to={"/update/" + data[0].id + "?toggle=5"}>
 																		<EditIcon color="secondary" />
 																</Link>
 															 </li>}

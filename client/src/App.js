@@ -9,12 +9,15 @@ import Update from "./page/update/Update";
 import ScolarShip from "./page/scolarship/ScolarShip";
 import Contact from "./component/contact/Contact";
 import { useSelector } from "react-redux";
+import { useEffect } from 'react';
 
 
 function App() {
 
   const userLogin = useSelector((state) => state.userLogin);
-	const { userInfo } = userLogin;
+  const { userInfo } = userLogin;
+  
+  
 
   return (
       
@@ -52,19 +55,24 @@ function App() {
                 <Contact />
               </div>
               <Footer/>
-            </Route>
-          
-            <Route exact path="/:id">
+          </Route>
+          <Route exact path="/update/:id">
               <div className="content">
                 <Update/>
-              </div>
+              </div> 
+            </Route>
+          <Route  path="*">
+              <NavBar />
+                  <div className="content">
+                    <Home />
+                    <Contact />
+                  </div>
+                <Footer/>
             </Route>
           
-            <Route  path="*">
-              <div className="content">
-                <Home/>
-              </div>
-            </Route>
+            
+          
+            
 
           </Switch>
       </div> 

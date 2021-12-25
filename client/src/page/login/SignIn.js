@@ -22,12 +22,7 @@ const SignIn = () => {
 		
 	};
 
-	useEffect(() => {
-		if (userInfo) {
-			    window.location.reload();
-;
-		}
-	}, [history, userInfo]);
+	
 
  
 	

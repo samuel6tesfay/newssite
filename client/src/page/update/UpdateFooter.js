@@ -3,7 +3,6 @@ import backendApi from "../api"
 import useAxios from '../useAxios';
 import { useHistory } from "react-router";
 
-import './update.css'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import Textfield from '../../component/Textfield';
 import Button1 from '../../component/Button'
@@ -29,9 +28,9 @@ const UpdateFooter = (props) => {
 
     const {data} = useAxios("/footer/"+props.id);
     
-    const update = (e) => {
+    const update = async(e) => {
 		e.preventDefault();
-		backendApi.put("/footer/"+props.id,
+		const { data } = await backendApi.put("/footer/"+props.id,
 			{
 
 				about_us: aboutUs,
@@ -52,6 +51,7 @@ const UpdateFooter = (props) => {
 			}			
 		);
 		history.push("/");
+		data && window.location.reload();
 	}
 
 	useEffect(() => {
@@ -77,7 +77,7 @@ const UpdateFooter = (props) => {
                 <div className="content-tabs create active-content">
 					<h2>Update Footer</h2>
 					<form>
-						<Textfield label="About Us" rows={1} value={aboutUs} setValue={setAboutUs} />
+						<Textfield label="About Us" rows={8} value={aboutUs} setValue={setAboutUs} />
 						<Textfield label="city" rows={1} value={city} setValue={setCity} />
 						<Textfield label="country" rows={1} value={country} setValue={setCountry} />
 						<Textfield label="email" rows={1} value={email} setValue={setEmail} />

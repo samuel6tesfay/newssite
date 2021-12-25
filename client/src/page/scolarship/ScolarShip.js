@@ -104,14 +104,14 @@ export default function ScolarShip() {
           <div class="content1">
           <h3>{!isPending && data.length > 0 && data[0].title}</h3>
               <p>{!isPending && data.length > 0 && data[0].discription}</p>
-              <a href="#" class="btn1">{!isPending && data.length > 0 && data[0].button}</a>
+              <a href="#applynow" class="btn1">{!isPending && data.length > 0 && data[0].button}</a>
         </div>
-        {userInfo && !isPending && data.length > 0 && <Link to={"/" + data[0].id + "?toggle=7"}>
+        {userInfo && !isPending && data.length > 0 && <Link to={"/update/" + data[0].id + "?toggle=7"}>
                     <EditIcon color="secondary" /></Link>}
 
       </div>
 
-      <div className="container c1">
+      <div className="container c1" id="applynow">
         {currentPosts && currentPosts.map((scolarship) => (
           <div className="card" key={scolarship.id}>
             <div className="top">
@@ -139,7 +139,7 @@ export default function ScolarShip() {
             <div className="bottom">
               <p className=".p3">{scolarship.deadline}</p>
               {userInfo
-                ? < Link to={"/" + scolarship.id+"?toggle=4"}>
+                ? < Link to={"/update/" + scolarship.id+"?toggle=4"}>
 								      <EditIcon color="secondary"/>
                   </Link>
                 : <a href={scolarship.link} className="love-donate .p4">Apply</a>

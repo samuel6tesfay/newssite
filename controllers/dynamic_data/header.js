@@ -52,13 +52,16 @@ const header = async (req,res) =>{
 const update_header = async (req,res) =>{
     try{
         const { id } = req.params;
+        console.log("header")
+        console.log(req.body)
         const { logo, logolink, menu1, menu1link,
             menu2, menu2link ,menu3, menu3link} = req.body;
-                pool.query("update header set   logo = $1 , logolink = $2 , menu1 = $3 ,menu1link = $4,menu2 = $5 ,menu2link = $6, menu3 = $7 ,menu3link = $8, where id = $9",[logo, logolink, menu1, menu1link, menu2, menu2link, menu3, menu3link,id]);
-        res.json("header is successfully updated"); 
+        const header = await pool.query("update header set logo = $1 , logolink = $2 , menu1 = $3 ,menu1link = $4,menu2 = $5 ,menu2link = $6, menu3 = $7 ,menu3link = $8 where id = $9",[logo, logolink, menu1, menu1link, menu2, menu2link, menu3, menu3link,id]);
+        console.log(header)
+        res.json("header is successfully updated");
     } catch (err) {
-        res.json("error");
         console.log(err.message);
+        res.json("error");
     }
 }
 

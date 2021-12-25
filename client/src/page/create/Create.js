@@ -1,13 +1,13 @@
 import { useState} from "react";
 import { useHistory } from "react-router";
 import backendApi from "../api"
-
 import './Create.css';// Import css modules stylesheet as styles
-
 import Textfield from '../../component/Textfield';
 import Button1 from '../../component/Button'
 import ImagePreview from '../../component/ImagePreview'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+import {isLink} from '../../utils/validation/Validation'
+
 
 const Create = () => {
 	const [toggleState, setToggleState] = useState(1);
@@ -17,6 +17,7 @@ const Create = () => {
 	const [deadline, setDeadline] = useState("");
 	const [image, setImage] = useState();
 	const [imageSrc, setImageSrc] = useState("");
+	const [error,setError] = useState("");
 	const history = useHistory();
 	
 	const defualtstatevalue = () => {
@@ -24,6 +25,7 @@ const Create = () => {
 		setBody("");
 		setLink("");
 		setDeadline("");
+		setError("");
 	}
 	const toggleTab = index => setToggleState(index);
 	const fileSelectedHandler = event => {
@@ -32,27 +34,32 @@ const Create = () => {
 		file.size <= 1024 * 1024 && setImage(file)
 		file.size <= 1024 * 1024 && setImageSrc(URL.createObjectURL(file));
 	};
-	const addThread = (e) => {
+	const addThread = async(e) => {
 			e.preventDefault();
-			 const formData = new FormData();
+			if (!isLink(link)) return setError("link must start with https:// or http://")
+			else setError("")
+		
+			const formData = new FormData();
             formData.append('image', image);
 			formData.append('username',username);
 			formData.append('body',body);
 			formData.append('link',link);
-			backendApi.post('/thread',formData,
+			const { data } = await backendApi.post('/thread',formData,
 			    {
          			 'Content-Type': 'multipart/form-data'
         		}
 			)
 			
 			defualtstatevalue();
-		
 			history.push("/");
+			data &&  window.location.reload();
+
 	};	
-	const addTrend = (e) => {
-		
+	const addTrend = async(e) => {	
 		e.preventDefault();
-		backendApi.post("/trend",
+		if (!isLink(link))
+				return setError("link must start with https:// or http://")	
+		const { data } = await backendApi.post("/trend",
 			{
 				body: body,
 				link: link,		
@@ -60,10 +67,13 @@ const Create = () => {
 		);
 		defualtstatevalue();
 		history.push("/");
+		data && window.location.reload();
 	}
-	const addrelevantPeople = (e) => {
+	const addrelevantPeople = async(e) => {
 		e.preventDefault();
-		backendApi.post("/relevant_people",
+		if (!isLink(link))
+				return setError("link must start with https:// or http://")	
+		const { data } = await backendApi.post("/relevant_people",
 			{
 				name:username,
 				body: body,
@@ -74,23 +84,28 @@ const Create = () => {
 		);
 		defualtstatevalue();
 		history.push("/");
+		data && window.location.reload();
+
 	}
-	const addScolarship = (e) => {
+	const addScolarship = async(e) => {
 		e.preventDefault();
+		if (!isLink(link))
+				return setError("link must start with https:// or http://")	
 		const formData = new FormData();
 			formData.append('image', image);
 			formData.append('deadline',deadline);
 			formData.append('link',link);
 			formData.append('body',body);
-			backendApi.post('/scolarship',formData,
+		const { data } = await backendApi.post('/scolarship',formData,
 				{
 						'Content-Type': 'multipart/form-data'
 				}
 		)
 		
 		defualtstatevalue();
-	
 		history.push("/");
+		data && window.location.reload();
+
 	};
 
 	return (
@@ -105,7 +120,8 @@ const Create = () => {
 				<div className={toggleState === 1 ? "create content  active-content": "create content"}>
 					<form onSubmit={addThread}>
 						<Textfield label="Username" rows={1} value={username} setValue={setUsername} />
-						<Textfield label="Link" rows={1} value={link} setValue={setLink} />
+						{error && <span style={{ color: 'red' }}>{error}</span>}
+						<Textfield label="Link" rows={1} value={link} setValue={setLink} error={error}/>
 						<Textfield label="Body" rows={10} value={body} setValue={setBody} />
 						<ImagePreview imageSrc={imageSrc} image={image} fileSelectedHandler={fileSelectedHandler} setImageSrc={setImageSrc}/>
 						<Button1 submit="submit" sx={{ margin: '50px' }} endIcon={<KeyboardArrowRightIcon/>}/>
@@ -114,7 +130,8 @@ const Create = () => {
 				<div className={toggleState === 2 ? "create content  active-content" : "create content"}>
 					<form onSubmit={addTrend}>
 						<Textfield label="Trend" rows={1} value={body} setValue={setBody} />
-						<Textfield label="Link" rows={1} value={link} setValue={setLink} />
+						{error && <span style={{ color: 'red' }}>{error}</span>}
+						<Textfield label="Link" rows={1} value={link} setValue={setLink} error={error}/>
 						<Button1 submit="submit" sx={{margin:'50px'}} endIcon={<KeyboardArrowRightIcon/>}/>
 					</form>
 				</div>			
@@ -122,7 +139,8 @@ const Create = () => {
 					<form onSubmit={addrelevantPeople}>
 							<Textfield label="Name" rows={1} value={username} setValue={setUsername} />
 							<Textfield label="Description" rows={5} value={body} setValue={setBody} />
-							<Textfield label="Link" rows={1} value={link} setValue={setLink} />
+							{error && <span style={{ color: 'red' }}>{error}</span>}
+							<Textfield label="Link" rows={1} value={link} setValue={setLink} error={error}/>
 							<Button1 submit="submit" sx={{margin:'50px'}} endIcon={<KeyboardArrowRightIcon/>}/>
 						</form>
 				</div>
@@ -130,7 +148,8 @@ const Create = () => {
 					<form onSubmit={addScolarship}>
 						<Textfield label="Deadline" rows={1} value={deadline} setValue={setDeadline} />
 						<Textfield label="Body" rows={10} value={body} setValue={setBody} />
-						<Textfield label="Link" rows={1} value={link} setValue={setLink} />
+						{error && <span style={{ color: 'red' }}>{error}</span>}
+						<Textfield label="Link" rows={1} value={link} setValue={setLink} error={error}/>
 						<ImagePreview imageSrc={imageSrc} image={image} fileSelectedHandler={fileSelectedHandler} setImageSrc={setImageSrc}/>
 						<Button1 submit="submit" sx={{margin:'50px'}} endIcon={<KeyboardArrowRightIcon/>}/>
 					</form>

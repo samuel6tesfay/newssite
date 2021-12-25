@@ -2,20 +2,25 @@
 
 
 .create {
-	max-width: 800px;
+	/* max-width: 800px; */
 	text-align: center;
 	margin-top: -10px;
 	display: none;
-
+  background-color:rgb(250, 245, 245);
+  padding: 30px;
+  border-radius: 10px;
+  margin-top: 10px;
 }
-
+ body #dark{
+  background-color:black;
+}
 /* .create label {
 	text-align: left;
 	display: block;
 } */
 .create h2 {
 	font-size: 20px;
-	color: #f1356d;
+	color: #726623;
 	margin-bottom: 30px;
 }
 

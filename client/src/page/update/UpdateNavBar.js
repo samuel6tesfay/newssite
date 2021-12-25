@@ -3,7 +3,6 @@ import backendApi from "../api"
 import useAxios from '../useAxios';
 import { useHistory } from "react-router";
 
-import './update.css'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import Textfield from '../../component/Textfield';
 import Button1 from '../../component/Button'
@@ -22,9 +21,9 @@ const UpdateNavBar = (props) => {
 
     const {data} = useAxios("/header/"+props.id);
     
-    const update_header = (e) => {
+    const update_header = async(e) => {
 		e.preventDefault();
-		backendApi.put("/header/"+props.id,
+		const { data } = await backendApi.put("/header/"+props.id,
 			{
 
 				logo:logo,
@@ -34,10 +33,11 @@ const UpdateNavBar = (props) => {
 				menu2: menu2,
 				menu2link: menu2link,
 				menu3: menu3,
-				menu3link: menu3link,
+				menu3link: menu3link
 			}			
 		);
 		history.push("/");
+		data && window.location.reload();
 	}
 
 	useEffect(() => {

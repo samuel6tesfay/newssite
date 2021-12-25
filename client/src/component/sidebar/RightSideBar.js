@@ -62,7 +62,7 @@ const RightSideBar = (props) => {
                                 </a>
                             }
                             {userInfo
-                                    && < Link style={{ float: "right" ,marginTop:"-10px"}} to={"/" + relevant_people.id+"?toggle=3"}>
+                                    && < Link style={{ float: "right" ,marginTop:"-10px"}} to={"/update/" + relevant_people.id+"?toggle=3"}>
                                         <a><EditIcon color="secondary" className=".love-donate"/></a>
                                 </Link>
                                 }

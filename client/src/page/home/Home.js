@@ -71,7 +71,7 @@ const Home = () => {
              <div className="home">
                 <div className="leftsidebar">
                     {isPending && <LoadLeftSideBar/>}
-			        {data && data.length > 0 && <LeftSideBar trend={data} />}
+			        {data && !error&& data.length > 0 && <LeftSideBar trend={data} />}
                 </div>
                 <div className="flex5">
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: "50px" }}>
@@ -88,7 +88,7 @@ const Home = () => {
                 </div>
                 <div className="rightsidebar" >
                     {is_relevant_people_pending && <LoadRightSideBar/>}
-                    {relevant_people_data && <RightSideBar relevant_people={relevant_people_data} />} 
+                    {relevant_people_data && !relevant_people_error && <RightSideBar relevant_people={relevant_people_data} />} 
                   </div> 
             </div>
             {totalpage > 10 && <Pagination PostsPerPage={postsPerPage} totalPage={totalpage} paginate={paginate} prev={prev} next={next}/>}

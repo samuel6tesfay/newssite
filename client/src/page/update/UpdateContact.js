@@ -3,7 +3,6 @@ import backendApi from "../api"
 import useAxios from '../useAxios';
 import { useHistory } from "react-router";
 
-import './update.css'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import Textfield from '../../component/Textfield';
 import Button1 from '../../component/Button'
@@ -13,14 +12,15 @@ const UpdateContact = (props) => {
 	const [title, setTitle] = useState("");
 	const history = useHistory();
     const {data} = useAxios("/contact/"+props.id);
-    const update_contact = (e) => {
+    const update_contact = async(e) => {
 		e.preventDefault();
-		backendApi.put("/contact/"+props.id,
+		const { data } = await backendApi.put("/contact/"+props.id,
 			{
 				title: title
 			}			
 		);
 		history.push("/");
+		data && window.location.reload();
 	}
 
 	useEffect(() => {

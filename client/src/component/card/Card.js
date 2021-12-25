@@ -55,8 +55,8 @@ const Card = (props) => {
 
     }
 
-    const updateView = (id) => {
-		backendApi.get("/updatethreadview/"+id, {})
+    const updateView = async (id) => {
+		const {data} = await backendApi.get("/updatethreadview/"+id, {})
                         .then(function (response) {
 								
 							})
@@ -65,7 +65,7 @@ const Card = (props) => {
                         .then(function () {
                         }
 		); 
-		history.push("/");
+        data && window.location.reload();
 	}
 
     return (
@@ -107,7 +107,7 @@ const Card = (props) => {
                          <a className="love-donate" href={thread.link}  onClick={()=>updateView(thread.id)} ><FontAwesomeIcon icon={faRetweet} /></a>
 
                          {userInfo
-                            ? < Link to={"/" + thread.id+"?toggle=1"}>
+                            ? < Link to={"/update/" + thread.id+"?toggle=1"}>
                                  <EditIcon color="secondary" />
                              </Link>
                              : ""

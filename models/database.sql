@@ -10,7 +10,8 @@ CREATE TABLE threads(
      id serial primary key,
      username varchar(255),
      body varchar,
-     link varchar(255),
+     link varchar,
+     views  INT DEFAULT 0,
      avatar varchar(255),
      cloudinary_id varchar(255),
      date DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -20,7 +21,7 @@ CREATE TABLE threads(
 CREATE TABLE trends(
      id serial primary key,
      body varchar(255),
-     link varchar(255),
+     link varchar,
      user_id   INT  references users(id)
  
  );
@@ -29,7 +30,7 @@ CREATE TABLE relevant_people(
      id serial primary key,
      name varchar(255),
      body varchar,
-     link varchar(255),
+     link varchar,
      user_id   INT  references users(id)
 );
 
@@ -37,7 +38,7 @@ CREATE TABLE scolarships(
      id serial primary key,
      body varchar,
      deadline varchar(255),
-     link varchar(255),
+     link varchar,
      avatar varchar(255),
      cloudinary_id varchar(255),
      user_id   INT  references users(id)
@@ -48,13 +49,13 @@ CREATE TABLE scolarships(
 CREATE TABLE header(
      id serial primary key,
      logo varchar(255),
-     logolink varchar(255),
+     logolink varchar,
      menu1 varchar(255),
-     menu1link varchar(255),
+     menu1link varchar,
      menu2 varchar(255),
-     menu2link varchar(255),
+     menu2link varchar,
      menu3 varchar(255),
-     menu3link varchar(255),
+     menu3link varchar,
      user_id   INT  references users(id)
 );
 
@@ -85,15 +86,15 @@ CREATE TABLE footer(
      email varchar(255),
      phone varchar(255),
      icon1 varchar(255),
-     icon1link varchar(255),
+     icon1link varchar,
      icon2 varchar(255),
-     icon2link varchar(255),
+     icon2link varchar,
      icon3 varchar(255),
-     icon3link varchar(255),
+     icon3link varchar,
      icon4 varchar(255),
-     icon4link varchar(255),
+     icon4link varchar,
      icon5 varchar(255),
-     icon5link varchar(255),
+     icon5link varchar,
      user_id INT references users(id)
 );
 

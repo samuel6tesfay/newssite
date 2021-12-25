@@ -3,12 +3,12 @@ import backendApi from "../api"
 import useAxios from '../useAxios';
 import { useHistory } from "react-router";
 
-import './update.css'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 
 import Textfield from '../../component/Textfield';
 import Button1 from '../../component/Button'
 import ImagePreview from '../../component/ImagePreview'
+import {isLink} from '../../utils/validation/Validation'
 
 const UpdateThread = (props) => {
 
@@ -18,6 +18,8 @@ const UpdateThread = (props) => {
     const [image, setImage] = useState();
 	const [imageSrc, setImageSrc] = useState("");
 	const [avatar, setAvatar] = useState("");
+	const [error,setError] = useState("");
+
 	const history = useHistory();
 
 	const fileSelectedHandler = event => {
@@ -26,25 +28,29 @@ const UpdateThread = (props) => {
 		file.size <= 1024 * 1024 && setImage(file);
 		file.size <= 1024 * 1024 && setImageSrc(URL.createObjectURL(file));
 	};
-	const remove = (e) => {
+	const remove = async(e) => {
 		e.preventDefault();
-		backendApi.delete("/thread/"+props.id);
+		const { data } = await backendApi.delete("/thread/"+props.id);
 		history.push("/");
+		data && window.location.reload();
 	}
-	const update = (e) => {
-		e.preventDefault();			
+	const update = async(e) => {
+		e.preventDefault();
+		if (!isLink(link))
+				return setError("link must start with https:// or http://")	
+			
 		const formData = new FormData();
 		formData.append('image', image);
 		formData.append('username',username);
 		formData.append('body',body);
 		formData.append('link',link);
-		backendApi.put('/thread/'+props.id,formData,
+		const { data } = await backendApi.put('/thread/'+props.id,formData,
 			{
 					'Content-Type': 'multipart/form-data'
 			}
 		)
-			
-		history.push("/");
+		history.push("/")	
+		data && window.location.reload();
 	}
 
     const {data} = useAxios("/thread/"+props.id);
@@ -52,7 +58,6 @@ const UpdateThread = (props) => {
     useEffect(() => {
 		setUsername(data.username);
         setAvatar(data.avatar);
-		setUsername(data.name) ;
 		setLink(data.link);
 		setBody(data.body);
     },[data])
@@ -65,7 +70,8 @@ const UpdateThread = (props) => {
                     <h2>Update Thread</h2>
 					<form>
 						<Textfield label="Username" rows={1} value={username} setValue={setUsername} />
-						<Textfield label="Link" rows={1} value={link} setValue={setLink} />
+						{error && <span style={{ color: 'red' }}>{error}</span>}
+						<Textfield label="Link" rows={1} value={link} setValue={setLink} error={error}/>
 						<Textfield label="Body" rows={10} value={body} setValue={setBody} />
 						<ImagePreview imageSrc={imageSrc} image={image} avatar={avatar} fileSelectedHandler={fileSelectedHandler} setImageSrc={setImageSrc}/>
 						<Button1 submit="Update" onClick={update} endIcon={<KeyboardArrowRightIcon/>} sx={{ margin: '50px'}} />
