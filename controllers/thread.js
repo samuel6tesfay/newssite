@@ -6,7 +6,6 @@ const createthread = async (req, res) => {
     try {
         const user_id = req.user.id;
         const result = await cloudinary.uploader.upload(req.file.path);
-        console.log("ye")
         console.log(result);
         console.log(req.body);
         const { username, body, link } = req.body;

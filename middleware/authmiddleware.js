@@ -3,8 +3,8 @@ require('dotenv').config()
 const jwt = require('jsonwebtoken');
 
 const verifyToken = (req,res,next) => {
-    // const token = req.cookies.userInfo;
-    const token = req.headers['x-access-token']
+    const token = req.cookies.userInfo;
+    // const token = req.headers['x-access-token']
     if(token){
         jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,user) => {
             if(err){
