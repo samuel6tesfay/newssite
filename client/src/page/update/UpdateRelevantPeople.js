@@ -50,7 +50,7 @@ const UpdateRelevantPeople = (props) => {
                 <div className="content-tabs create active-content">
 					<h2>Update relevant people</h2>	
 					<form >
-						<Textfield label="Name" rows={1} value={username} setValue={setBody} />
+						<Textfield label="Name" rows={1} value={username} setValue={setUsername} />
 						<Textfield label="Description" rows={5} value={body} setValue={setBody} />
 						{error && <span style={{ color: 'red' }}>{error}</span>}
 						<Textfield label="Link" rows={1} value={link} setValue={setLink} error={error}/>
