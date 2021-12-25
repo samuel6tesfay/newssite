@@ -19,7 +19,7 @@ const createtrend = async (req, res) => {
 const trends = async (req,res) =>{
     try{
         
-        const alltrends = await pool.query("select * from trends ORDER BY id DESC LIMIT $1",[10]);
+        const alltrends = await pool.query("select * from trends ORDER BY id DESC LIMIT $1",[20]);
         res.json(alltrends.rows);
     } catch (err) {
         res.json("error");
