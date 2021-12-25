@@ -39,7 +39,7 @@ CREATE TABLE scolarships(
      body varchar,
      deadline varchar(255),
      link varchar,
-     avatar varchar(255),
+     avatar varchar(255) ,
      cloudinary_id varchar(255),
      user_id   INT  references users(id)
 );
@@ -75,7 +75,6 @@ CREATE TABLE about_scolarship(
      avatar varchar(255),
      cloudinary_id varchar(255),
      user_id INT references users(id)
-
 );
 
 CREATE TABLE footer(

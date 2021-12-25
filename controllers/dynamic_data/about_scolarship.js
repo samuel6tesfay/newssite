@@ -6,12 +6,12 @@ const create_about_scolarship = async (req,res) =>{
     try {
  
         const user_id = req.user.id;
-        // const result = await cloudinary.uploader.upload(req.file.path);
+        const result = await cloudinary.uploader.upload(req.file.path);
         const { title, discription, button } = req.body;
-        // const avatar = result.secure_url;
-        // const cloudinary_id = result.public_id;
+        const avatar = result.secure_url;
+        const cloudinary_id = result.public_id;
         const new_about_scolarship = await pool.query(
-            "insert into about_scolarship (title,discription,button,avatar,cloudinary_id,user_id) values($1,$2,$3,$4,$5,$6)",[title,discription,button,"a","c",user_id]
+            "insert into about_scolarship (title,discription,button,avatar,cloudinary_id,user_id) values($1,$2,$3,$4,$5,$6)",[title,discription,button,avatar,cloudinary_id,user_id]
         );  
         res.json(new_about_scolarship[0])  
 

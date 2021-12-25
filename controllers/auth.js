@@ -81,7 +81,7 @@ const login = async (req, res) => {
                     // console.log(user.rows[0])
                     const token = createToken(user.rows[0].id ,  user.rows[0].isadmin );
                     // res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-                    res.cookie('userInfo', token, { maxAge: maxAge * 1000 });
+                    // res.cookie('userInfo', token, { maxAge: maxAge * 1000 });
                     // res.json(token);
                     res.send({'userInfo':token})
                     res.json({ id:user.id,isAdmin:user.isAdmin });
